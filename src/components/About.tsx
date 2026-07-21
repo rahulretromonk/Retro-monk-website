@@ -115,7 +115,7 @@ export const About = () => {
           </p>
 
           <div className="mb-10">
-            <h3 className="text-5xl text-[#a88655] mb-2" style={{ fontFamily: 'cursive' }}>E. Sterling</h3>
+            <h3 className="text-5xl text-[#a88655] mb-2" style={{ fontFamily: 'cursive' }}>Rahul</h3>
             <p className="text-xs tracking-[0.15em] text-[#55524c] font-semibold uppercase">Founder & Lead Photographer</p>
           </div>
 

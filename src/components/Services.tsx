@@ -104,7 +104,7 @@ export const Services = () => {
                   {service.description}
                 </p>
                 <a href="#" className="inline-flex items-center text-xs tracking-[0.15em] text-[#a88655] font-semibold uppercase hover:text-[#8a6e45] transition-colors mt-auto">
-                  Explore More 
+                  Book now 
                   <span className="ml-2">→</span>
                 </a>
               </div>
@@ -138,7 +138,7 @@ export const Services = () => {
             </div>
             <div className="flex-shrink-0 pt-2 md:pt-0">
               <a href="#" className="inline-flex items-center text-xs tracking-[0.15em] text-[#a88655] font-semibold uppercase hover:text-[#8a6e45] transition-colors">
-                Explore More 
+                Book now
                 <span className="ml-2">→</span>
               </a>
             </div>

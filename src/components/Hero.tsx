@@ -117,18 +117,18 @@ export function Hero() {
         animate={{ opacity: stage >= 1 ? 1 : 0, y: stage >= 1 ? 0 : 30 }}
         transition={{ duration: 1, delay: 1.5 }}
       >
-        <h1 className="text-5xl md:text-[5.5rem] leading-[1.1] font-serif mb-6 text-[#A05C3C]">
-          Capturing Stories<br />Through Every Frame
+        <h1 className="text-5xl md:text-[4.5rem] leading-[1.1] font-serif mb-6 text-[#A05C3C]">
+          Capturing Moments<br />Through Every Frame
         </h1>
         <p className="text-[#8C6D5D] text-lg md:text-xl max-w-2xl mx-auto mb-10 font-serif leading-relaxed">
           A curated collection of timeless moments, meticulously crafted to preserve the elegance and authenticity of your legacy.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <button className="bg-[#2D3741] text-[#A05C3C] text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-[#1E252C] transition-colors">
+        <div className="flex flex-col sm:flex-row items-center justify-center mb-3 gap-6">
+          <button className="bg-[#2D3741] text-[#A05C3C] text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-[#1E252C] transition-colors rounded-full">
             View Portfolio
           </button>
-          <button className="bg-transparent border border-[#A05C3C] text-[#333333] text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-[#A05C3C]/5 transition-colors">
+          <button className="bg-transparent border border-[#A05C3C] text-[#333333] text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-[#F5F1E8]/5 transition-colors rounded-full">
             Book A Session
           </button>
         </div>
