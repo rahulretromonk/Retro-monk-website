@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const portfolioItems = [
   {
@@ -86,10 +87,10 @@ export const Portfolio = () => {
                 <p className="text-[#55524c] text-base leading-relaxed mb-8 max-w-md">
                   {item.description}
                 </p>
-                <a href="#" className="inline-flex items-center text-xs tracking-[0.15em] text-[#a88655] font-semibold uppercase hover:text-[#8a6e45] transition-colors">
+                <Link href="/portfolio" className="inline-flex items-center text-xs tracking-[0.15em] text-[#a88655] font-semibold uppercase hover:text-[#8a6e45] transition-colors">
                   View Collection 
                   <span className="ml-2">→</span>
-                </a>
+                </Link>
               </div>
             </div>
           ))}

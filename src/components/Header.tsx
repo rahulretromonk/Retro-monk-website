@@ -11,7 +11,7 @@ export function Header() {
           </span>
         </Link>
         <nav className="hidden md:flex items-center gap-10 text-xs font-semibold tracking-widest text-[#5A5A5A] uppercase">
-          <Link href="#portfolio" className="text-[#A05C3C] border-b border-[#A05C3C] pb-1">
+          <Link href="/portfolio" className="hover:text-[#A05C3C] transition-colors pb-1">
             Portfolio
           </Link>
           <Link href="#gallery" className="hover:text-[#A05C3C] transition-colors pb-1">

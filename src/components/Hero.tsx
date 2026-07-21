@@ -2,10 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const images = [
-  "https://images.unsplash.com/photo-1542314831-c53cd3816002?q=80&w=600&auto=format&fit=crop", // card 1 (leftmost)
-  "https://images.unsplash.com/photo-1600607688960-e09882c55b8c?q=80&w=600&auto=format&fit=crop", // card 2
+  "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600&auto=format&fit=crop", // card 1 (leftmost)
+  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop", // card 2
   "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=600&auto=format&fit=crop", // card 3
   "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?q=80&w=600&auto=format&fit=crop", // card 4 (center)
   "https://images.unsplash.com/photo-1600861194942-f883de0dfe96?q=80&w=600&auto=format&fit=crop", // card 5
@@ -125,9 +126,9 @@ export function Hero() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center mb-3 gap-6">
-          <button className="bg-[#2D3741] text-[#A05C3C] text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-[#1E252C] transition-colors rounded-full">
+          <Link href="/portfolio" className="inline-block text-center bg-[#2D3741] text-[#A05C3C] text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-[#1E252C] transition-colors rounded-full">
             View Portfolio
-          </button>
+          </Link>
           <button className="bg-transparent border border-[#A05C3C] text-[#333333] text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-[#F5F1E8]/5 transition-colors rounded-full">
             Book A Session
           </button>

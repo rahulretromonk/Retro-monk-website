@@ -14,32 +14,6 @@ export const PortfolioHero = () => {
         }}
       ></div>
 
-      {/* Header / Navbar Overlay */}
-      <header className="relative z-10 w-full pt-8 pb-4 flex justify-between items-center px-8 md:px-16 lg:px-24">
-        <Link href="/" className="flex items-center text-white">
-          <span className="text-2xl font-serif tracking-wide">
-            Pixelate
-          </span>
-        </Link>
-        <nav className="hidden md:flex items-center gap-10 text-xs font-semibold tracking-widest text-white uppercase">
-          <Link href="/" className="hover:text-[#A05C3C] transition-colors pb-1">
-            Home
-          </Link>
-          <Link href="/#about" className="hover:text-[#A05C3C] transition-colors pb-1">
-            About
-          </Link>
-          <Link href="/portfolio" className="text-[#A05C3C] pb-1">
-            Portfolio
-          </Link>
-          <Link href="/#services" className="hover:text-[#A05C3C] transition-colors pb-1">
-            Services
-          </Link>
-          <Link href="/#contact" className="hover:text-[#A05C3C] transition-colors pb-1">
-            Contact
-          </Link>
-        </nav>
-      </header>
-
       {/* Hero Content */}
       <div className="relative z-10 h-full flex items-center px-8 md:px-16 lg:px-24">
         <div className="max-w-xl text-white">
