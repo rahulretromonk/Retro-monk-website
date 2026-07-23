@@ -24,6 +24,9 @@ interface DashboardStats {
   testimonialsCount: number;
   pendingInquiries: number;
   recentInquiries: any[];
+  cloudinaryRemaining: string;
+  cloudinaryPercentage: number;
+  cloudinaryDesc: string;
 }
 
 export default function AdminDashboardPage() {
@@ -38,15 +41,45 @@ export default function AdminDashboardPage() {
         const headers: HeadersInit = token ? { Authorization: `Bearer ${token}` } : {};
 
         // Fetch data in parallel
-        const [portRes, testRes, inqRes] = await Promise.all([
+        const [portRes, testRes, inqRes, cloudRes] = await Promise.all([
           fetch('/api/admin/portfolio', { headers }),
           fetch('/api/admin/testimonials', { headers }),
           fetch('/api/admin/inquiries', { headers }),
+          fetch('/api/admin/cloudinary-stats', { headers }),
         ]);
 
         const portfolios = portRes.ok ? await portRes.json() : [];
         const testimonials = testRes.ok ? await testRes.json() : [];
         const inquiries = inqRes.ok ? await inqRes.json() : [];
+        
+        let cloudinaryRemaining = '25.0 GB';
+        let cloudinaryPercentage = 0;
+        let cloudinaryDesc = 'Remaining of 25 GB limit';
+
+        if (cloudRes.ok) {
+          const cloudData = await cloudRes.json();
+          if (cloudData.isFallback) {
+            // Fallback calculation (mock limit)
+            const totalPhotos = portfolios.length;
+            const storageUsed = Number((totalPhotos * 1.25).toFixed(1)); 
+            const remainingMb = Number((50 - storageUsed).toFixed(1));
+            cloudinaryRemaining = `${remainingMb} MB`;
+            cloudinaryPercentage = Math.min((storageUsed / 50) * 100, 100);
+            cloudinaryDesc = '50 MB Studio limit';
+          } else {
+            cloudinaryRemaining = `${cloudData.remainingGb} GB`;
+            cloudinaryPercentage = cloudData.usedPercentage;
+            cloudinaryDesc = `Remaining of ${cloudData.limitGb} GB limit`;
+          }
+        } else {
+          // Fallback if API is unavailable
+          const totalPhotos = portfolios.length;
+          const storageUsed = Number((totalPhotos * 1.25).toFixed(1)); 
+          const remainingMb = Number((50 - storageUsed).toFixed(1));
+          cloudinaryRemaining = `${remainingMb} MB`;
+          cloudinaryPercentage = Math.min((storageUsed / 50) * 100, 100);
+          cloudinaryDesc = '50 MB Studio limit';
+        }
 
         // Calculate metrics
         const totalPhotos = portfolios.length;
@@ -66,7 +99,10 @@ export default function AdminDashboardPage() {
           storageUsed,
           testimonialsCount,
           pendingInquiries,
-          recentInquiries: inquiries.slice(0, 3)
+          recentInquiries: inquiries.slice(0, 3),
+          cloudinaryRemaining,
+          cloudinaryPercentage,
+          cloudinaryDesc
         });
       } catch (err) {
         console.error("Failed to load dashboard metrics:", err);
@@ -129,12 +165,12 @@ export default function AdminDashboardPage() {
       desc: 'Active portfolios',
     },
     {
-      label: 'Storage Used',
-      value: `${stats.storageUsed} MB`,
+      label: 'Storage Remaining',
+      value: stats.cloudinaryRemaining,
       icon: Database,
-      percent: Math.min((stats.storageUsed / 50) * 100, 100), // out of 50MB
+      percent: stats.cloudinaryPercentage,
       color: 'stroke-[#355C4A]',
-      desc: '50 MB Studio limit',
+      desc: stats.cloudinaryDesc,
     },
     {
       label: 'Testimonials',
