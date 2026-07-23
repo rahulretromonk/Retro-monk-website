@@ -133,14 +133,58 @@
   "testimonials": [
     {
       "id": "tst-static-1",
-      "clientName": "Amara & Julian",
-      "review": "Working with Archival Studio was an absolute dream. They didn't just photograph our wedding; they captured the invisible current of emotion between our guests.",
+      "clientName": "Shekar mahadev",
+      "review": "Capture every emotion, tradition, and unforgettable moment of your special day with timeless wedding photography. The videos and images exceeded all our editorial expectations.",
       "rating": 5,
-      "eventType": "Wedding stories",
-      "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200",
-      "publicId": "static_testimonial_amara",
+      "eventType": "Wedding Stories",
+      "imageUrl": "https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-in-front-of-an-altar-39871-large.mp4",
+      "publicId": "static_tst_shekar",
       "displayOrder": 1,
       "createdAt": "2026-07-23T05:00:00.000Z"
+    },
+    {
+      "id": "tst-static-2",
+      "clientName": "Anju",
+      "review": "Natural and romantic couple photography in beautiful outdoor locations with authentic storytelling. The motion clips added a breathtaking narrative layer to our gallery.",
+      "rating": 5,
+      "eventType": "Outdoor Couple Shoots",
+      "imageUrl": "https://assets.mixkit.co/videos/preview/mixkit-couple-walking-in-a-forest-42247-large.mp4",
+      "publicId": "static_tst_anju",
+      "displayOrder": 2,
+      "createdAt": "2026-07-23T05:01:00.000Z"
+    },
+    {
+      "id": "tst-static-3",
+      "clientName": "Ram",
+      "review": "Professional portraits that highlight your personality with elegant lighting and timeless compositions. The process felt extremely premium and personal.",
+      "rating": 5,
+      "eventType": "Portrait Sessions",
+      "imageUrl": "https://assets.mixkit.co/videos/preview/mixkit-woman-smiling-in-front-of-a-neutral-background-42256-large.mp4",
+      "publicId": "static_tst_ram",
+      "displayOrder": 3,
+      "createdAt": "2026-07-23T05:02:00.000Z"
+    },
+    {
+      "id": "tst-static-4",
+      "clientName": "Sonam",
+      "review": "Joyful birthday photography that preserves genuine smiles, laughter, family moments, and unforgettable celebrations. Perfect loops to share with friends and family.",
+      "rating": 5,
+      "eventType": "Birthday Celebrations",
+      "imageUrl": "https://assets.mixkit.co/videos/preview/mixkit-birthday-cake-with-burning-candles-42250-large.mp4",
+      "publicId": "static_tst_sonam",
+      "displayOrder": 4,
+      "createdAt": "2026-07-23T05:03:00.000Z"
+    },
+    {
+      "id": "tst-static-5",
+      "clientName": "Agarwal",
+      "review": "Premium commercial photography for brands, products, businesses, and promotional campaigns with a refined visual identity. Highly professional turnaround and creative direction.",
+      "rating": 5,
+      "eventType": "Commercial Shoots",
+      "imageUrl": "https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-craftsman-working-with-leather-42232-large.mp4",
+      "publicId": "static_tst_agarwal",
+      "displayOrder": 5,
+      "createdAt": "2026-07-23T05:04:00.000Z"
     }
   ],
   "faq": [
