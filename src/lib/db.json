@@ -224,5 +224,17 @@
       "createdAt": "2026-07-23T05:04:00.000Z"
     }
   ],
-  "inquiries": []
+  "inquiries": [
+    {
+      "clientName": "Badhri",
+      "email": "retromonk.office@gmail.com",
+      "phone": "999999999",
+      "eventType": "Inquiry",
+      "eventDetails": "Puberty function for me",
+      "id": "inq-1784808450503",
+      "status": "pending",
+      "submittedDate": "2026-07-23T12:07:30.503Z",
+      "createdAt": "2026-07-23T12:07:30.503Z"
+    }
+  ]
 }

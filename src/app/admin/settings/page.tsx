@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { User, Key, Database, Save, Info } from 'lucide-react';
 import { AdminCard } from '@/components/admin/ui/AdminCard';
@@ -18,12 +18,29 @@ export default function SettingsAdminPage() {
   const [isSavingProfile, setIsSavingProfile] = useState(false);
   const [isSavingPass, setIsSavingPass] = useState(false);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const name = localStorage.getItem('admin_profile_name') || 'Rahul';
+      const email = localStorage.getItem('admin_profile_email') || 'retromonk.office@gmail.com';
+      const role = localStorage.getItem('admin_profile_role') || 'Chief Curator';
+      setProfileName(name);
+      setProfileEmail(email);
+      setProfileRole(role);
+    }
+  }, []);
+
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSavingProfile(true);
     setTimeout(() => {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('admin_profile_name', profileName);
+        localStorage.setItem('admin_profile_role', profileRole);
+        localStorage.setItem('admin_profile_email', profileEmail);
+        window.dispatchEvent(new Event('admin-profile-update'));
+      }
       setIsSavingProfile(false);
-      toast('success', 'Profile settings updated successfully (Simulated)');
+      toast('success', 'Profile settings updated successfully');
     }, 600);
   };
 

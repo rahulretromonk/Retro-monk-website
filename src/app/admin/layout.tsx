@@ -39,8 +39,10 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [searchVal, setSearchVal] = useState('');
+  const [profileName, setProfileName] = useState('Rahul');
+  const [profileRole, setProfileRole] = useState('Chief Curator');
 
-  // 1. Auth check
+  // 1. Auth check & profile loading
   useEffect(() => {
     setIsMounted(true);
     const token = localStorage.getItem('admin_token');
@@ -65,6 +67,20 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
       localStorage.removeItem('admin_token');
       router.push('/admin/login');
     }
+
+    // Load admin profile settings
+    const loadProfile = () => {
+      const name = localStorage.getItem('admin_profile_name') || 'Rahul';
+      const role = localStorage.getItem('admin_profile_role') || 'Chief Curator';
+      setProfileName(name);
+      setProfileRole(role);
+    };
+
+    loadProfile();
+    window.addEventListener('admin-profile-update', loadProfile);
+    return () => {
+      window.removeEventListener('admin-profile-update', loadProfile);
+    };
   }, [pathname, router]);
 
   if (!isMounted) {
@@ -142,13 +158,13 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Admin Info Profile */}
-          <div className="flex items-center gap-3 bg-[#E8DCCB]/30 p-3 rounded-[20px] border border-[#7A5848]/5">
+          <div className="flex items-center gap-3 bg-[#E8DCCB]/30 p-3 rounded-[20px] border border-[#7A5848]/5 select-none">
             <div className="w-10 h-10 rounded-full overflow-hidden bg-[#7A5848]/20 flex items-center justify-center text-[#7A5848] font-bold text-sm">
-              SA
+              {profileName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'R'}
             </div>
-            <div className="flex flex-col">
-              <span className="text-xs font-sans font-bold text-[#2D2D2D]">Studio Admin</span>
-              <span className="text-[9px] font-sans text-[#7A5848]/70">Digital Darkroom v1.0</span>
+            <div className="flex flex-col min-w-0">
+              <span className="text-xs font-sans font-bold text-[#2D2D2D] truncate max-w-[140px]" title={profileName}>{profileName}</span>
+              <span className="text-[9px] font-sans text-[#7A5848]/70 truncate max-w-[140px]" title={profileRole}>{profileRole}</span>
             </div>
           </div>
 
@@ -282,9 +298,9 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
             {/* Profile Avatar */}
             <Link 
               href="/admin/settings"
-              className="w-10 h-10 rounded-full flex items-center justify-center bg-[#355C4A] text-[#FAF6EE] font-bold text-xs hover:scale-105 transition-transform"
+              className="w-10 h-10 rounded-full flex items-center justify-center bg-[#355C4A] text-[#FAF6EE] font-bold text-[10px] tracking-wider hover:scale-105 transition-transform select-none uppercase"
             >
-              <User size={15} />
+              {profileName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'R'}
             </Link>
           </div>
         </header>
