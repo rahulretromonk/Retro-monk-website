@@ -191,7 +191,7 @@ export const Testimonials = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-              className="bg-[#FAF9F5] w-full max-w-2xl overflow-hidden relative z-10 border border-[#7A5848]/20 flex flex-col shadow-2xl"
+              className="bg-[#FAF9F5] w-full max-w-2xl overflow-hidden relative z-10 border border-[#7A5848]/25 flex flex-col shadow-2xl"
               style={{ borderRadius: '32px' }}
             >
               {/* Close Button */}
