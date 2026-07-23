@@ -118,7 +118,8 @@ export default function AdminDashboardPage() {
   const renderProgressRing = (percentage: number, colorClass: string) => {
     const radius = 18;
     const circumference = 2 * Math.PI * radius;
-    const strokeDashoffset = circumference - (Math.min(percentage, 100) / 100) * circumference;
+    const safePercent = isNaN(percentage) || typeof percentage !== 'number' ? 0 : percentage;
+    const strokeDashoffset = circumference - (Math.min(safePercent, 100) / 100) * circumference;
 
     return (
       <svg className="w-10 h-10 transform -rotate-90">
