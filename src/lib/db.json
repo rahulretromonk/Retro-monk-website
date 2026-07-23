@@ -1,0 +1,228 @@
+{
+  "portfolio": [
+    {
+      "id": "port-static-1",
+      "title": "Wedding Stories",
+      "description": "Intimate narratives of love and commitment, documented with an unobtrusive editorial eye to preserve genuine emotion.",
+      "category": "WEDDING",
+      "imageUrl": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=1200",
+      "publicId": "static_wedding_stories",
+      "imagePosition": "left",
+      "displayOrder": 1,
+      "createdAt": "2026-07-23T05:00:00.000Z"
+    },
+    {
+      "id": "port-static-2",
+      "title": "Outdoor Couple Shoots",
+      "description": "Sun-drenched landscapes and authentic connection, creating cinematic visuals that feel entirely personal.",
+      "category": "OUTDOOR",
+      "imageUrl": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200",
+      "publicId": "static_outdoor_shoots",
+      "imagePosition": "right",
+      "displayOrder": 1,
+      "createdAt": "2026-07-23T05:01:00.000Z"
+    },
+    {
+      "title": "About the portfolio",
+      "description": "Retro monk",
+      "category": "OUTDOOR",
+      "imageUrl": "https://res.cloudinary.com/v5svoex0/image/upload/v1784785152/retro-monk/portfolio/zwejmbasabnrq3ovegps.png",
+      "publicId": "retro-monk/portfolio/zwejmbasabnrq3ovegps",
+      "imagePosition": "right",
+      "displayOrder": 2,
+      "id": "port-1784785220195",
+      "createdAt": "2026-07-23T05:40:20.195Z"
+    },
+    {
+      "id": "port-static-3",
+      "title": "Portrait Collection",
+      "description": "Focused, soulful studies of character. A classic approach utilizing thoughtful light to reveal quiet confidence.",
+      "category": "PORTRAIT",
+      "imageUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=1200",
+      "publicId": "static_portrait_collection",
+      "imagePosition": "left",
+      "displayOrder": 1,
+      "createdAt": "2026-07-23T05:02:00.000Z"
+    },
+    {
+      "id": "port-static-4",
+      "title": "Birthday Celebrations",
+      "description": "Joyful gatherings documented with elegance, focusing on the shared laughter and sophisticated details of the occasion.",
+      "category": "BIRTHDAY",
+      "imageUrl": "https://images.unsplash.com/photo-1530103862676-de3c9de59a9e?auto=format&fit=crop&q=80&w=1200",
+      "publicId": "static_birthday_celebrations",
+      "imagePosition": "right",
+      "displayOrder": 1,
+      "createdAt": "2026-07-23T05:03:00.000Z"
+    },
+    {
+      "id": "port-static-5",
+      "title": "Commercial Shoots",
+      "description": "Translating brand ethos into compelling visual narratives with a polished, high-end editorial sensibility.",
+      "category": "COMMERCIAL",
+      "imageUrl": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1200",
+      "publicId": "static_commercial_shoots",
+      "imagePosition": "left",
+      "displayOrder": 1,
+      "createdAt": "2026-07-23T05:04:00.000Z"
+    },
+    {
+      "id": "port-static-6",
+      "title": "Wild Trails\n(Personal Collection)",
+      "description": "A personal exploration of the natural world, capturing the untamed beauty of wildlife in its purest form.",
+      "category": "PERSONAL",
+      "imageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=1200",
+      "publicId": "static_wild_trails",
+      "imagePosition": "right",
+      "displayOrder": 1,
+      "createdAt": "2026-07-23T05:05:00.000Z"
+    }
+  ],
+  "services": [
+    {
+      "id": "srv-static-1",
+      "title": "Wedding Stories",
+      "description": "Capture every emotion, tradition, and unforgettable moment of your special day with timeless wedding photography.",
+      "imageUrl": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800",
+      "publicId": "static_service_wedding",
+      "displayOrder": 1,
+      "price": "$4,500",
+      "createdAt": "2026-07-23T05:00:00.000Z"
+    },
+    {
+      "id": "srv-static-2",
+      "title": "Outdoor Couple Shoots",
+      "description": "Natural and romantic couple photography in beautiful outdoor locations with authentic storytelling.",
+      "imageUrl": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800",
+      "publicId": "static_service_couple",
+      "displayOrder": 2,
+      "price": "$850",
+      "createdAt": "2026-07-23T05:01:00.000Z"
+    },
+    {
+      "id": "srv-static-3",
+      "title": "Portrait Sessions",
+      "description": "Professional portraits that highlight your personality with elegant lighting and timeless compositions.",
+      "imageUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800",
+      "publicId": "static_service_portrait",
+      "displayOrder": 3,
+      "price": "$500",
+      "createdAt": "2026-07-23T05:02:00.000Z"
+    },
+    {
+      "id": "srv-static-4",
+      "title": "Birthday Celebrations",
+      "description": "Joyful birthday photography that preserves genuine smiles, laughter, family moments, and unforgettable celebrations.",
+      "imageUrl": "https://images.unsplash.com/photo-1530103862676-de3c9de59a9e?auto=format&fit=crop&q=80&w=800",
+      "publicId": "static_service_birthday",
+      "displayOrder": 4,
+      "price": "$600",
+      "createdAt": "2026-07-23T05:03:00.000Z"
+    },
+    {
+      "id": "srv-static-5",
+      "title": "Commercial Shoots",
+      "description": "Premium commercial photography for brands, products, businesses, and promotional campaigns with a refined visual identity.",
+      "imageUrl": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1600",
+      "publicId": "static_service_commercial",
+      "displayOrder": 5,
+      "price": "Custom Quote",
+      "createdAt": "2026-07-23T05:04:00.000Z"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "tst-static-1",
+      "clientName": "Shekar mahadev",
+      "review": "Capture every emotion, tradition, and unforgettable moment of your special day with timeless wedding photography. The videos and images exceeded all our editorial expectations.",
+      "rating": 5,
+      "eventType": "Wedding Stories",
+      "imageUrl": "https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-in-front-of-an-altar-39871-large.mp4",
+      "publicId": "static_tst_shekar",
+      "displayOrder": 1,
+      "createdAt": "2026-07-23T05:00:00.000Z"
+    },
+    {
+      "id": "tst-static-2",
+      "clientName": "Anju",
+      "review": "Natural and romantic couple photography in beautiful outdoor locations with authentic storytelling. The motion clips added a breathtaking narrative layer to our gallery.",
+      "rating": 5,
+      "eventType": "Outdoor Couple Shoots",
+      "imageUrl": "https://assets.mixkit.co/videos/preview/mixkit-couple-walking-in-a-forest-42247-large.mp4",
+      "publicId": "static_tst_anju",
+      "displayOrder": 2,
+      "createdAt": "2026-07-23T05:01:00.000Z"
+    },
+    {
+      "id": "tst-static-3",
+      "clientName": "Ram",
+      "review": "Professional portraits that highlight your personality with elegant lighting and timeless compositions. The process felt extremely premium and personal.",
+      "rating": 5,
+      "eventType": "Portrait Sessions",
+      "imageUrl": "https://assets.mixkit.co/videos/preview/mixkit-woman-smiling-in-front-of-a-neutral-background-42256-large.mp4",
+      "publicId": "static_tst_ram",
+      "displayOrder": 3,
+      "createdAt": "2026-07-23T05:02:00.000Z"
+    },
+    {
+      "id": "tst-static-4",
+      "clientName": "Sonam",
+      "review": "Joyful birthday photography that preserves genuine smiles, laughter, family moments, and unforgettable celebrations. Perfect loops to share with friends and family.",
+      "rating": 5,
+      "eventType": "Birthday Celebrations",
+      "imageUrl": "https://assets.mixkit.co/videos/preview/mixkit-birthday-cake-with-burning-candles-42250-large.mp4",
+      "publicId": "static_tst_sonam",
+      "displayOrder": 4,
+      "createdAt": "2026-07-23T05:03:00.000Z"
+    },
+    {
+      "id": "tst-static-5",
+      "clientName": "Agarwal",
+      "review": "Premium commercial photography for brands, products, businesses, and promotional campaigns with a refined visual identity. Highly professional turnaround and creative direction.",
+      "rating": 5,
+      "eventType": "Commercial Shoots",
+      "imageUrl": "https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-craftsman-working-with-leather-42232-large.mp4",
+      "publicId": "static_tst_agarwal",
+      "displayOrder": 5,
+      "createdAt": "2026-07-23T05:04:00.000Z"
+    }
+  ],
+  "faq": [
+    {
+      "id": "faq-static-1",
+      "question": "How far in advance should we secure a booking?",
+      "answer": "For weekend dates during peak season (May through October), we recommend securing your commission 12 to 18 months in advance. Our calendar is strictly limited to ensure the highest level of artistic dedication to each client.\n\nFor intimate gatherings, elopements, or mid-week commissions, a 6-month lead time is generally sufficient. A signed agreement and retainer are required to reserve your date on our calendar.",
+      "displayOrder": 1,
+      "createdAt": "2026-07-23T05:00:00.000Z"
+    },
+    {
+      "id": "faq-static-2",
+      "question": "Do you travel for destination commissions?",
+      "answer": "Yes, we frequently travel for destination weddings and elopements worldwide. Custom collections are available to include travel accommodations.",
+      "displayOrder": 2,
+      "createdAt": "2026-07-23T05:01:00.000Z"
+    },
+    {
+      "id": "faq-static-3",
+      "question": "What is the timeline for receiving the final gallery?",
+      "answer": "You will receive a preview gallery within 48 hours. The complete, curated final gallery will be delivered within 6 to 8 weeks depending on the season.",
+      "displayOrder": 3,
+      "createdAt": "2026-07-23T05:02:00.000Z"
+    },
+    {
+      "id": "faq-static-4",
+      "question": "How do you approach inclement weather?",
+      "answer": "We embrace weather as part of your story. We always come prepared with clear umbrellas and creative indoor/sheltered alternatives to ensure beautiful portraits regardless of the forecast.",
+      "displayOrder": 4,
+      "createdAt": "2026-07-23T05:03:00.000Z"
+    },
+    {
+      "id": "faq-static-5",
+      "question": "Can we customize our coverage collection?",
+      "answer": "Absolutely. We offer bespoke collections tailored to your specific events, timeline, and deliverables.",
+      "displayOrder": 5,
+      "createdAt": "2026-07-23T05:04:00.000Z"
+    }
+  ],
+  "inquiries": []
+}

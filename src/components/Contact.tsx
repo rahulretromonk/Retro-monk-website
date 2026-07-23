@@ -1,10 +1,57 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 export const Contact = () => {
+  const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [details, setDetails] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!fullName || !email || !details) {
+      setMessage({ type: 'error', text: 'Please fill in all required fields (Name, Email, Details).' });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setMessage(null);
+
+    try {
+      const res = await fetch('/api/admin/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          clientName: fullName,
+          email,
+          phone,
+          eventType: 'Inquiry',
+          eventDetails: details,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to submit inquiry');
+      }
+
+      setFullName('');
+      setPhone('');
+      setEmail('');
+      setDetails('');
+      setMessage({ type: 'success', text: 'Thank you! Your inquiry has been submitted and captured in our darkroom inbox.' });
+    } catch (err) {
+      console.error(err);
+      setMessage({ type: 'error', text: 'There was an error sending your message. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <section className="bg-[#f5f2eb] text-[#2c2a26] py-24 px-6 md:px-12 lg:px-24 font-sans">
+    <section id="contact" className="bg-[#f5f2eb] text-[#2c2a26] py-24 px-6 md:px-12 lg:px-24 font-sans">
       <div className="max-w-6xl mx-auto flex flex-col items-center">
         
         {/* Header */}
@@ -64,16 +111,18 @@ export const Contact = () => {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <form className="flex flex-col gap-8">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
               
               <div className="flex flex-col md:flex-row gap-8">
                 <div className="flex flex-col w-full md:w-1/2 group">
                   <label htmlFor="fullName" className="text-[10px] tracking-widest text-[#6b675e] font-bold uppercase mb-2">
-                    Full Name
+                    Full Name *
                   </label>
                   <input 
                     type="text" 
                     id="fullName" 
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                     placeholder="Jane Doe" 
                     className="w-full bg-transparent border-b border-[#e8e4db] py-2 text-sm text-[#3a3731] placeholder-[#b5b1a8] focus:outline-none focus:border-[#a88655] transition-colors"
                   />
@@ -85,6 +134,8 @@ export const Contact = () => {
                   <input 
                     type="tel" 
                     id="phoneNumber" 
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                     placeholder="+1 (555) 000-0000" 
                     className="w-full bg-transparent border-b border-[#e8e4db] py-2 text-sm text-[#3a3731] placeholder-[#b5b1a8] focus:outline-none focus:border-[#a88655] transition-colors"
                   />
@@ -93,11 +144,13 @@ export const Contact = () => {
 
               <div className="flex flex-col w-full group">
                 <label htmlFor="email" className="text-[10px] tracking-widest text-[#6b675e] font-bold uppercase mb-2">
-                  Email Address
-                </label>
+                  Email Address *
+                  </label>
                 <input 
                   type="email" 
                   id="email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="jane@example.com" 
                   className="w-full bg-transparent border-b border-[#e8e4db] py-2 text-sm text-[#3a3731] placeholder-[#b5b1a8] focus:outline-none focus:border-[#a88655] transition-colors"
                 />
@@ -105,21 +158,32 @@ export const Contact = () => {
 
               <div className="flex flex-col w-full group mb-6">
                 <label htmlFor="details" className="text-[10px] tracking-widest text-[#6b675e] font-bold uppercase mb-2">
-                  Event Details & Dates
+                  Event Details & Dates *
                 </label>
                 <textarea 
                   id="details" 
+                  value={details}
+                  onChange={(e) => setDetails(e.target.value)}
                   placeholder="Tell us about your vision, proposed dates, and any specific locations..." 
                   rows={3}
                   className="w-full bg-transparent border-b border-[#e8e4db] py-2 text-sm text-[#3a3731] placeholder-[#b5b1a8] focus:outline-none focus:border-[#a88655] transition-colors resize-none"
                 ></textarea>
               </div>
 
+              {message && (
+                <div className={`p-4 rounded-xl text-xs font-sans font-semibold ${
+                  message.type === 'success' ? 'bg-[#355C4A]/10 text-[#355C4A]' : 'bg-red-500/10 text-red-700'
+                }`}>
+                  {message.text}
+                </div>
+              )}
+
               <button 
                 type="submit" 
-                className="w-full border border-[#3a3731] text-[#3a3731] text-[10px] tracking-widest font-bold uppercase py-4 rounded-xl hover:bg-[#3a3731] hover:text-white transition-colors"
+                disabled={isSubmitting}
+                className="w-full border border-[#3a3731] text-[#3a3731] text-[10px] tracking-widest font-bold uppercase py-4 rounded-xl hover:bg-[#3a3731] hover:text-white transition-colors cursor-pointer disabled:opacity-50"
               >
-                Book Your Session
+                {isSubmitting ? 'Sending Request...' : 'Book Your Session'}
               </button>
 
             </form>

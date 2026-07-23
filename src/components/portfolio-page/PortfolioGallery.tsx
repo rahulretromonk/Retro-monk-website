@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const categories = ["ALL", "WEDDING", "OUTDOOR", "PORTRAIT", "BIRTHDAY", "COMMERCIAL", "PERSONAL"];
 
@@ -70,8 +70,37 @@ const images = [
 export const PortfolioGallery = () => {
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [showAll, setShowAll] = useState(false);
+  const [galleryItems, setGalleryItems] = useState<any[]>(images);
 
-  const filteredImages = images.filter(img => activeCategory === "ALL" || img.category === activeCategory);
+  useEffect(() => {
+    async function loadPortfolio() {
+      try {
+        const res = await fetch('/api/admin/portfolio');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0) {
+            // Map db entries to the gallery format
+            const dbItems = data.map((d: any) => ({
+              id: d.id,
+              src: d.imageUrl,
+              category: d.category || 'WEDDING',
+              aspect: d.imagePosition === 'center' ? 'aspect-square' : d.imagePosition === 'right' ? 'aspect-[3/4]' : 'aspect-[4/3]',
+              isDb: true
+            }));
+            
+            // Prepend new database items, removing potential duplicates
+            const combined = [...dbItems, ...images.filter(img => !dbItems.some((dbI: any) => dbI.src === img.src))];
+            setGalleryItems(combined);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load portfolio gallery:", err);
+      }
+    }
+    loadPortfolio();
+  }, []);
+
+  const filteredImages = galleryItems.filter(img => activeCategory === "ALL" || img.category === activeCategory);
   const displayedImages = showAll ? filteredImages : filteredImages.slice(0, 6);
 
   return (

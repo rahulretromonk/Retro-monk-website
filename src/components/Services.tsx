@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const services = [
@@ -62,6 +62,56 @@ const commercialShoot = {
 };
 
 export const Services = () => {
+  const [gridServices, setGridServices] = useState<any[]>(services);
+  const [commercialItem, setCommercialItem] = useState<any>(commercialShoot);
+
+  useEffect(() => {
+    async function loadServices() {
+      try {
+        const res = await fetch('/api/admin/services');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0) {
+            // Sort by display order
+            const sorted = data.sort((a: any, b: any) => a.displayOrder - b.displayOrder);
+            
+            // Map the items to include the visual icon fallback
+            const mapped = sorted.map((d: any, idx: number) => {
+              // Find matching static service to copy its SVG icon
+              const matchedStatic = services.find(s => s.title.toLowerCase() === d.title.toLowerCase()) 
+                || (commercialShoot.title.toLowerCase() === d.title.toLowerCase() ? commercialShoot : null);
+              
+              const defaultIcon = (
+                <svg className="w-5 h-5 text-[#a88655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16" />
+                </svg>
+              );
+
+              return {
+                id: d.id.startsWith('srv-') ? `0${idx + 1}` : d.id,
+                title: d.title,
+                description: d.description,
+                image: d.imageUrl,
+                icon: matchedStatic ? matchedStatic.icon : defaultIcon
+              };
+            });
+
+            // Split into grid items (first 4) and commercial item (5th or last)
+            const grids = mapped.slice(0, 4);
+            setGridServices(grids.length > 0 ? grids : services);
+            
+            if (mapped.length >= 5) {
+              setCommercialItem(mapped[4]);
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load services dynamically:", err);
+      }
+    }
+    loadServices();
+  }, []);
+
   return (
     <section className="bg-[#f0ece1] text-[#2c2a26] py-24 px-6 md:px-12 lg:px-24 font-sans border-t border-[#e0d8c8]">
       <div className="max-w-6xl mx-auto flex flex-col items-center">
@@ -80,7 +130,7 @@ export const Services = () => {
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mb-8">
-          {services.map((service, index) => (
+          {gridServices.map((service, index) => (
             <motion.div 
               key={service.id}
               className="bg-white rounded-3xl p-4 shadow-sm border border-[#e8e4db] flex flex-col"
@@ -103,7 +153,7 @@ export const Services = () => {
                 <p className="text-[#55524c] text-sm leading-relaxed mb-6 flex-grow">
                   {service.description}
                 </p>
-                <a href="#" className="inline-flex items-center text-xs tracking-[0.15em] text-[#a88655] font-semibold uppercase hover:text-[#8a6e45] transition-colors mt-auto">
+                <a href="#contact" className="inline-flex items-center text-xs tracking-[0.15em] text-[#a88655] font-semibold uppercase hover:text-[#8a6e45] transition-colors mt-auto">
                   Book now 
                   <span className="ml-2">→</span>
                 </a>
@@ -122,22 +172,22 @@ export const Services = () => {
         >
           <div className="relative rounded-2xl overflow-hidden h-[250px] md:h-[400px] w-full mb-6">
             <div className="absolute top-4 left-4 bg-white/90 backdrop-blur text-[#55524c] text-xs font-medium px-3 py-1.5 rounded-full z-10">
-              {commercialShoot.id}
+              {commercialItem.id}
             </div>
-            <img src={commercialShoot.image} alt={commercialShoot.title} className="w-full h-full object-cover" />
+            <img src={commercialItem.image} alt={commercialItem.title} className="w-full h-full object-cover" />
           </div>
           <div className="px-4 pb-4 md:px-8 md:pb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="max-w-xl">
               <div className="mb-4">
-                {commercialShoot.icon}
+                {commercialItem.icon}
               </div>
-              <h3 className="text-2xl md:text-3xl font-serif text-[#3a3731] mb-3">{commercialShoot.title}</h3>
+              <h3 className="text-2xl md:text-3xl font-serif text-[#3a3731] mb-3">{commercialItem.title}</h3>
               <p className="text-[#55524c] text-sm md:text-base leading-relaxed">
-                {commercialShoot.description}
+                {commercialItem.description}
               </p>
             </div>
             <div className="flex-shrink-0 pt-2 md:pt-0">
-              <a href="#" className="inline-flex items-center text-xs tracking-[0.15em] text-[#a88655] font-semibold uppercase hover:text-[#8a6e45] transition-colors">
+              <a href="#contact" className="inline-flex items-center text-xs tracking-[0.15em] text-[#a88655] font-semibold uppercase hover:text-[#8a6e45] transition-colors">
                 Book now
                 <span className="ml-2">→</span>
               </a>
