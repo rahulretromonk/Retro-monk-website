@@ -230,11 +230,44 @@
       "email": "retromonk.office@gmail.com",
       "phone": "999999999",
       "eventType": "Inquiry",
-      "eventDetails": "Puberty function for me",
+      "details": "Puberty function for me",
       "id": "inq-1784808450503",
       "status": "pending",
       "submittedDate": "2026-07-23T12:07:30.503Z",
       "createdAt": "2026-07-23T12:07:30.503Z"
+    },
+    {
+      "clientName": "RETRO MONK",
+      "email": "retromonk.office@gmail.com",
+      "phone": "999999999",
+      "eventType": "Inquiry",
+      "details": "test ",
+      "id": "inq-1785126250383",
+      "status": "pending",
+      "submittedDate": "2026-07-27T04:24:10.383Z",
+      "createdAt": "2026-07-27T04:24:10.383Z"
+    },
+    {
+      "clientName": "Testing",
+      "email": "testing@gmail.com",
+      "phone": "999999999",
+      "eventType": "Inquiry",
+      "details": "test query please check",
+      "id": "inq-1785126489088",
+      "status": "pending",
+      "submittedDate": "2026-07-27T04:28:09.088Z",
+      "createdAt": "2026-07-27T04:28:09.088Z"
+    },
+    {
+      "clientName": "RETRO MONK",
+      "email": "retromonk.office@gmail.com",
+      "phone": "999999999",
+      "eventType": "Inquiry",
+      "details": "oorum blood\n",
+      "id": "inq-1785127019716",
+      "status": "pending",
+      "submittedDate": "2026-07-27T04:36:59.716Z",
+      "createdAt": "2026-07-27T04:36:59.716Z"
     }
   ]
 }

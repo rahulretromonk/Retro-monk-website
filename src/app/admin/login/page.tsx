@@ -95,10 +95,10 @@ export default function AdminLoginPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <span className="text-[10px] font-sans font-black tracking-widest text-[#355C4A] uppercase bg-[#355C4A]/10 px-4 py-1.5 rounded-full">
-            Darkroom Gateway
+            Staff portal
           </span>
           <h2 className="text-3xl md:text-4xl font-serif font-black text-[#7A5848] mt-4 tracking-wide leading-tight">
-            Archival Studio
+            Retro monk
           </h2>
           <p className="text-xs text-[#7A5848]/70 mt-1 italic font-serif">
             Timeless details, managed with intention

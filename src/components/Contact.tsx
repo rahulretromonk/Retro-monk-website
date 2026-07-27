@@ -8,17 +8,15 @@ export const Contact = () => {
   const [email, setEmail] = useState('');
   const [details, setDetails] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName || !email || !details) {
-      setMessage({ type: 'error', text: 'Please fill in all required fields (Name, Email, Details).' });
+      alert('Please fill in all required fields (Name, Email, Details).');
       return;
     }
 
     setIsSubmitting(true);
-    setMessage(null);
 
     try {
       const res = await fetch('/api/admin/inquiries', {
@@ -29,7 +27,7 @@ export const Contact = () => {
           email,
           phone,
           eventType: 'Inquiry',
-          eventDetails: details,
+          details: details,
         }),
       });
 
@@ -41,10 +39,10 @@ export const Contact = () => {
       setPhone('');
       setEmail('');
       setDetails('');
-      setMessage({ type: 'success', text: 'Thank you! Your inquiry has been submitted and captured in our darkroom inbox.' });
+      alert('Thank you! Your inquiry has been submitted and captured in our darkroom inbox.');
     } catch (err) {
       console.error(err);
-      setMessage({ type: 'error', text: 'There was an error sending your message. Please try again.' });
+      alert('There was an error sending your message. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -169,14 +167,6 @@ export const Contact = () => {
                   className="w-full bg-transparent border-b border-[#e8e4db] py-2 text-sm text-[#3a3731] placeholder-[#b5b1a8] focus:outline-none focus:border-[#a88655] transition-colors resize-none"
                 ></textarea>
               </div>
-
-              {message && (
-                <div className={`p-4 rounded-xl text-xs font-sans font-semibold ${
-                  message.type === 'success' ? 'bg-[#355C4A]/10 text-[#355C4A]' : 'bg-red-500/10 text-red-700'
-                }`}>
-                  {message.text}
-                </div>
-              )}
 
               <button 
                 type="submit" 

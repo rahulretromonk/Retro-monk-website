@@ -6,7 +6,7 @@ export interface InquiryItem {
   eventType: string; // e.g. Wedding, portrait, commercial
   status: 'pending' | 'reviewed' | 'responded';
   submittedDate: string;
-  eventDetails: string;
+  details: string;
   adminNotes?: string;
   createdAt: string;
 }

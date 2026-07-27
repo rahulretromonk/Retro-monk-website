@@ -23,6 +23,7 @@ export function useInquiries() {
     try {
       const response = await fetch('/api/admin/inquiries', {
         headers: getHeaders(),
+        cache: 'no-store',
       });
       if (!response.ok) {
         throw new Error('Failed to fetch inquiries');

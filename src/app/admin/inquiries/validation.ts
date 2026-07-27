@@ -4,7 +4,7 @@ export interface ValidationError {
   clientName?: string;
   email?: string;
   eventType?: string;
-  eventDetails?: string;
+  details?: string;
 }
 
 export function validateInquiry(item: Partial<NewInquiryItem>): ValidationError {
@@ -24,8 +24,8 @@ export function validateInquiry(item: Partial<NewInquiryItem>): ValidationError 
     errors.eventType = 'Event or shoot type is required';
   }
 
-  if (!item.eventDetails?.trim()) {
-    errors.eventDetails = 'Event details description is required';
+  if (!item.details?.trim()) {
+    errors.details = 'Event details description is required';
   }
 
   return errors;

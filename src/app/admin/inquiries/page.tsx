@@ -259,7 +259,7 @@ export default function InquiriesAdminPage() {
                               <Calendar size={11} /> Booking Details ({item.eventType})
                             </h4>
                             <p className="text-xs font-sans text-[#2D2D2D] leading-relaxed whitespace-pre-wrap">
-                              {item.eventDetails}
+                              {item.details}
                             </p>
                           </div>
 

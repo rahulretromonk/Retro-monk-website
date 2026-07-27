@@ -96,12 +96,16 @@ export const Services = () => {
               };
             });
 
-            // Split into grid items (first 4) and commercial item (5th or last)
-            const grids = mapped.slice(0, 4);
-            setGridServices(grids.length > 0 ? grids : services);
-            
-            if (mapped.length >= 5) {
-              setCommercialItem(mapped[4]);
+            if (mapped.length > 0) {
+              if (mapped.length % 2 !== 0) {
+                // Odd number: last item becomes full-width to balance the 2-column grid
+                setGridServices(mapped.slice(0, -1));
+                setCommercialItem(mapped[mapped.length - 1]);
+              } else {
+                // Even number: all items in the grid, perfectly balanced
+                setGridServices(mapped);
+                setCommercialItem(null);
+              }
             }
           }
         }
@@ -163,37 +167,39 @@ export const Services = () => {
         </div>
 
         {/* Full Width Service */}
-        <motion.div 
-          className="w-full bg-white rounded-3xl p-4 shadow-sm border border-[#e8e4db]"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-        >
-          <div className="relative rounded-2xl overflow-hidden h-[250px] md:h-[400px] w-full mb-6">
-            <div className="absolute top-4 left-4 bg-white/90 backdrop-blur text-[#55524c] text-xs font-medium px-3 py-1.5 rounded-full z-10">
-              {commercialItem.id}
-            </div>
-            <img src={commercialItem.image} alt={commercialItem.title} className="w-full h-full object-cover" />
-          </div>
-          <div className="px-4 pb-4 md:px-8 md:pb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="max-w-xl">
-              <div className="mb-4">
-                {commercialItem.icon}
+        {commercialItem && (
+          <motion.div 
+            className="w-full bg-white rounded-3xl p-4 shadow-sm border border-[#e8e4db]"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+          >
+            <div className="relative rounded-2xl overflow-hidden h-[250px] md:h-[400px] w-full mb-6">
+              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur text-[#55524c] text-xs font-medium px-3 py-1.5 rounded-full z-10">
+                {commercialItem.id}
               </div>
-              <h3 className="text-2xl md:text-3xl font-serif text-[#3a3731] mb-3">{commercialItem.title}</h3>
-              <p className="text-[#55524c] text-sm md:text-base leading-relaxed">
-                {commercialItem.description}
-              </p>
+              <img src={commercialItem.image} alt={commercialItem.title} className="w-full h-full object-cover" />
             </div>
-            <div className="flex-shrink-0 pt-2 md:pt-0">
-              <a href="#contact" className="inline-flex items-center text-xs tracking-[0.15em] text-[#a88655] font-semibold uppercase hover:text-[#8a6e45] transition-colors">
-                Book now
-                <span className="ml-2">→</span>
-              </a>
+            <div className="px-4 pb-4 md:px-8 md:pb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="max-w-xl">
+                <div className="mb-4">
+                  {commercialItem.icon}
+                </div>
+                <h3 className="text-2xl md:text-3xl font-serif text-[#3a3731] mb-3">{commercialItem.title}</h3>
+                <p className="text-[#55524c] text-sm md:text-base leading-relaxed">
+                  {commercialItem.description}
+                </p>
+              </div>
+              <div className="flex-shrink-0 pt-2 md:pt-0">
+                <a href="#contact" className="inline-flex items-center text-xs tracking-[0.15em] text-[#a88655] font-semibold uppercase hover:text-[#8a6e45] transition-colors">
+                  Book now
+                  <span className="ml-2">→</span>
+                </a>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        )}
 
       </div>
     </section>

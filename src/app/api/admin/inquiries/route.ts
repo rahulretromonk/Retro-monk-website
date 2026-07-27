@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { checkAuth } from '@/lib/checkAuth';
 
+export const dynamic = 'force-dynamic';
+
+
 export async function GET(req: Request) {
   try {
     const items = await db.getInquiries();

@@ -143,7 +143,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between">
             <Link href="/" className="flex flex-col">
               <span className="text-xl font-serif font-black tracking-wide text-[#7A5848]">
-                Archival Studio
+                Retro monk
               </span>
               <span className="text-[10px] font-sans font-bold tracking-widest text-[#355C4A] uppercase">
                 Studio Admin

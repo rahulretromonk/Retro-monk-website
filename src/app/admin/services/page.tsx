@@ -28,7 +28,6 @@ export default function ServicesAdminPage() {
 
   const [formTitle, setFormTitle] = useState('');
   const [formDesc, setFormDesc] = useState('');
-  const [formPrice, setFormPrice] = useState('');
   const [formImageUrl, setFormImageUrl] = useState('');
   const [formPublicId, setFormPublicId] = useState('');
   const [formErrors, setFormErrors] = useState<ValidationError>({});
@@ -46,7 +45,6 @@ export default function ServicesAdminPage() {
     setEditingItem(null);
     setFormTitle('');
     setFormDesc('');
-    setFormPrice('');
     setFormImageUrl('');
     setFormPublicId('');
     setFormErrors({});
@@ -57,7 +55,6 @@ export default function ServicesAdminPage() {
     setEditingItem(item);
     setFormTitle(item.title);
     setFormDesc(item.description);
-    setFormPrice(item.price || '');
     setFormImageUrl(item.imageUrl);
     setFormPublicId(item.publicId || '');
     setFormErrors({});
@@ -72,7 +69,6 @@ export default function ServicesAdminPage() {
     const payload: Partial<NewServiceItem> = {
       title: formTitle,
       description: formDesc,
-      price: formPrice,
       imageUrl: formImageUrl,
       publicId: formPublicId,
       displayOrder: resolvedOrder,
@@ -178,13 +174,6 @@ export default function ServicesAdminPage() {
                     alt={item.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
                   />
-                  {item.price && (
-                    <div className="absolute bottom-4 left-4 z-10 flex gap-2">
-                      <span className="text-[10px] font-sans font-black bg-[#FAF6EE] text-[#7A5848] border border-[#7A5848]/25 px-3.5 py-1.5 rounded-full shadow-md flex items-center gap-1.5 uppercase tracking-widest">
-                        <Tag size={10} /> {item.price}
-                      </span>
-                    </div>
-                  )}
 
                   {/* Toolbar - on hover */}
                   <div className="absolute inset-0 bg-[#2D2D2D]/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -255,13 +244,6 @@ export default function ServicesAdminPage() {
             error={formErrors.title}
           />
 
-          <AdminInput
-            label="Price / Investment (Optional)"
-            value={formPrice}
-            onChange={(e) => setFormPrice(e.target.value)}
-            placeholder="e.g. $850 or Custom Quote"
-          />
-
           <AdminTextarea
             label="Description"
             value={formDesc}
@@ -305,7 +287,7 @@ export default function ServicesAdminPage() {
         onConfirm={handleConfirmDelete}
         isConfirming={isDeleting}
         title="Delete Service Package?"
-        description="Are you sure you want to delete this service package? The pricing details and description will be permanently removed."
+        description="Are you sure you want to delete this service package? The details and description will be permanently removed."
         confirmText="Confirm Delete"
       />
     </div>
