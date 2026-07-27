@@ -1,9 +1,11 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { Menu, X } from 'lucide-react';
 
 export function Header() {
   const [user, setUser] = useState<{ email: string; name: string } | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('admin_token');
@@ -27,30 +29,35 @@ export function Header() {
 
   const isAdmin = user?.email?.toLowerCase() === 'retromonk.office@gmail.com' || user?.email?.toLowerCase() === 'admin@archivalstudio.com';
 
+  const navLinks = [
+    { name: 'Portfolio', href: '/portfolio' },
+    { name: 'Gallery', href: '/#gallery' },
+    { name: 'Services', href: '/#services' },
+    { name: 'About', href: '/#about' },
+    { name: 'Contact', href: '/#contact' },
+  ];
+
   return (
-    <header className="w-full bg-[#F4F0EA] pt-8 pb-4">
-      <div className="max-w-[1400px] mx-auto flex items-center justify-between px-8">
+    <header className="w-full bg-[#F4F0EA] pt-6 pb-4 sticky top-0 z-[100] shadow-sm">
+      <div className="max-w-[1400px] mx-auto flex items-center justify-between px-6 md:px-8 relative">
         <Link href="/" className="flex items-center">
-          <span className="text-3xl font-serif text-[#333333] tracking-wide">
+          <span className="text-2xl md:text-3xl font-serif text-[#333333] tracking-wide">
             RETRO MONK
           </span>
         </Link>
+
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-10 text-xs font-semibold tracking-widest text-[#5A5A5A] uppercase">
-          <Link href="/portfolio" className="hover:text-[#A05C3C] transition-colors pb-1">
-            Portfolio
-          </Link>
-          <Link href="#gallery" className="hover:text-[#A05C3C] transition-colors pb-1">
-            Gallery
-          </Link>
-          <Link href="#services" className="hover:text-[#A05C3C] transition-colors pb-1">
-            Services
-          </Link>
-          <Link href="#about" className="hover:text-[#A05C3C] transition-colors pb-1">
-            About
-          </Link>
+          {navLinks.slice(0, 4).map((link) => (
+            <Link key={link.name} href={link.href} className="hover:text-[#A05C3C] transition-colors pb-1">
+              {link.name}
+            </Link>
+          ))}
         </nav>
+
+        {/* Desktop Right Actions */}
         <div className="hidden md:flex items-center gap-8">
-          <Link href="#contact" className="text-xs font-semibold tracking-widest text-[#5A5A5A] hover:text-[#A05C3C] transition-colors uppercase">
+          <Link href="/#contact" className="text-xs font-semibold tracking-widest text-[#5A5A5A] hover:text-[#A05C3C] transition-colors uppercase">
             Contact
           </Link>
           
@@ -76,8 +83,56 @@ export function Header() {
             </Link>
           )}
         </div>
+
+        {/* Mobile Hamburger Toggle */}
+        <button 
+          className="md:hidden p-2 text-[#5A5A5A] hover:text-[#A05C3C] transition-colors"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
-      <div className="w-full h-[1px] bg-black/5 mt-6"></div>
+
+      {/* Mobile Navigation Dropdown */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-[#F4F0EA] border-t border-black/5 shadow-md flex flex-col py-6 px-6 gap-6">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.name} 
+              href={link.href} 
+              className="text-sm font-semibold tracking-widest text-[#5A5A5A] hover:text-[#A05C3C] transition-colors uppercase"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {link.name}
+            </Link>
+          ))}
+          <div className="w-full h-[1px] bg-black/5 my-2"></div>
+          {user ? (
+            isAdmin ? (
+              <Link 
+                href="/admin" 
+                className="text-sm font-black tracking-widest text-[#355C4A] hover:text-[#A05C3C] transition-colors uppercase"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Admin Page
+              </Link>
+            ) : (
+              <span className="text-sm font-bold tracking-widest text-[#7A5848] uppercase">
+                Hello, {user.name}
+              </span>
+            )
+          ) : (
+            <Link 
+              href="/admin/login" 
+              className="text-sm font-semibold tracking-widest text-[#5A5A5A] hover:text-[#A05C3C] transition-colors uppercase"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Login
+            </Link>
+          )}
+        </div>
+      )}
     </header>
   );
 }

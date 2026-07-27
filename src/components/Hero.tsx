@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 const images = [
@@ -16,12 +16,20 @@ const images = [
 
 export function Hero() {
   const [stage, setStage] = useState(0);
+  
+  // Mobile Carousel states
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const swipeConfidenceThreshold = 10000;
+  const swipePower = (offset: number, velocity: number) => {
+    return Math.abs(offset) * velocity;
+  };
 
   useEffect(() => {
-    // Stage 0: Initial hidden state
-    // Stage 1: Pop up linearly
+    // Desktop Stage 0: Initial hidden state
+    // Desktop Stage 1: Pop up linearly
     const t1 = setTimeout(() => setStage(1), 500);
-    // Stage 2: Form semi-circle
+    // Desktop Stage 2: Form semi-circle
     const t2 = setTimeout(() => setStage(2), 2500);
 
     return () => {
@@ -29,6 +37,15 @@ export function Hero() {
       clearTimeout(t2);
     };
   }, []);
+
+  // Auto-slide for mobile/tablet
+  useEffect(() => {
+    if (isHovered) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isHovered]);
 
   const getCardStyle = (index: number, total: number) => {
     const isCenter = Math.floor(total / 2) === index;
@@ -76,10 +93,20 @@ export function Hero() {
     };
   };
 
+  const handleDragEnd = (e: any, { offset, velocity }: any) => {
+    const swipe = swipePower(offset.x, velocity.x);
+    if (swipe < -swipeConfidenceThreshold) {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    } else if (swipe > swipeConfidenceThreshold) {
+      setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    }
+  };
+
   return (
-    <section className="flex flex-col items-center justify-start min-h-screen pt-24 px-4 overflow-hidden bg-[#F4F0EA]">
-      {/* Cards Container */}
-      <div className="relative w-full max-w-5xl h-[450px] flex justify-center items-start mt-10 z-10">
+    <section className="flex flex-col items-center justify-start min-h-screen pt-16 lg:pt-24 px-4 overflow-hidden bg-[#F4F0EA]">
+      
+      {/* DESKTOP ONLY: Fan Cards Container */}
+      <div className="hidden lg:flex relative w-full max-w-5xl h-[450px] justify-center items-start mt-10 z-10">
         {images.map((src, index) => {
           const isCenter = index === 3;
           return (
@@ -97,13 +124,14 @@ export function Hero() {
                 duration: 0.8,
                 type: "spring",
                 bounce: 0.2,
-                delay: stage === 1 ? index * 0.1 : 0, // delay linearly on pop up
+                delay: stage === 1 ? index * 0.1 : 0,
               }}
             >
               <img
                 src={src}
                 alt={`Portfolio image ${index + 1}`}
                 className="w-full h-full object-cover"
+                loading={index === 3 ? "eager" : "lazy"}
               />
               <div className="absolute inset-0 bg-black/10 mix-blend-overlay"></div>
             </motion.div>
@@ -111,21 +139,65 @@ export function Hero() {
         })}
       </div>
 
-      {/* Typography and Buttons */}
+      {/* MOBILE/TABLET ONLY: Sliding Image Card */}
+      <div 
+        className="relative flex lg:hidden w-[90vw] md:w-[75vw] h-[450px] md:h-[500px] mt-6 mb-8 rounded-[24px] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] z-10"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onTouchStart={() => setIsHovered(true)}
+        onTouchEnd={() => { setTimeout(() => setIsHovered(false), 2000) }}
+      >
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={currentIndex}
+            src={images[currentIndex]}
+            alt={`Hero showcase image ${currentIndex + 1}`}
+            className="absolute inset-0 w-full h-full object-cover cursor-grab active:cursor-grabbing"
+            initial={{ opacity: 0, scale: 1 }}
+            animate={{ opacity: 1, scale: 1.02 }}
+            exit={{ opacity: 0, zIndex: -1 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={handleDragEnd}
+            loading={currentIndex === 0 ? "eager" : "lazy"}
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-black/5 pointer-events-none mix-blend-overlay"></div>
+      </div>
+
+      {/* MOBILE/TABLET ONLY: Pagination Dots */}
+      <div className="flex lg:hidden justify-center items-center gap-3 mb-10 z-20">
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentIndex(idx)}
+            aria-label={`Go to image ${idx + 1}`}
+            className={`rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#A05C3C]/50 ${
+              idx === currentIndex
+                ? "w-2.5 h-2.5 bg-[#A96A45]"
+                : "w-2 h-2 bg-[#D5CFC1] opacity-60 hover:opacity-100"
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* Shared Typography and Buttons */}
       <motion.div 
-        className="text-center max-w-3xl z-20 mt-12"
+        className="text-center max-w-3xl z-20 mt-4 lg:mt-12 px-2"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: stage >= 1 ? 1 : 0, y: stage >= 1 ? 0 : 30 }}
         transition={{ duration: 1, delay: 1.5 }}
       >
-        <h1 className="text-5xl md:text-[4.5rem] leading-[1.1] font-serif mb-6 text-[#A05C3C]">
+        <h1 className="text-4xl md:text-5xl lg:text-[4.5rem] leading-[1.1] font-serif mb-5 lg:mb-6 text-[#A05C3C]">
           Capturing Moments<br />Through Every Frame
         </h1>
-        <p className="text-[#8C6D5D] text-lg md:text-xl max-w-2xl mx-auto mb-10 font-serif leading-relaxed">
+        <p className="text-[#8C6D5D] text-base md:text-lg lg:text-xl max-w-xl lg:max-w-2xl mx-auto mb-8 lg:mb-10 font-serif leading-relaxed">
           A curated collection of timeless moments, meticulously crafted to preserve the elegance and authenticity of your legacy.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center mb-3 gap-6">
+        <div className="flex flex-col sm:flex-row items-center justify-center mb-10 lg:mb-3 gap-4 lg:gap-6">
           <Link href="/portfolio" className="inline-block text-center bg-[#2D3741] text-[#A05C3C] text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-[#1E252C] transition-colors rounded-full">
             View Portfolio
           </Link>

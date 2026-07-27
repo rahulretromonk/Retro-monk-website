@@ -40,7 +40,7 @@ const services = [
     id: "04",
     title: "Birthday Celebrations",
     description: "Joyful birthday photography that preserves genuine smiles, laughter, family moments, and unforgettable celebrations.",
-    image: "https://images.unsplash.com/photo-1530103862676-de3c9de59a9e?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1558636508-e0db3814bd1d?auto=format&fit=crop&q=80&w=800",
     icon: (
       <svg className="w-5 h-5 text-[#a88655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
@@ -117,7 +117,7 @@ export const Services = () => {
   }, []);
 
   return (
-    <section className="bg-[#f0ece1] text-[#2c2a26] py-24 px-6 md:px-12 lg:px-24 font-sans border-t border-[#e0d8c8]">
+    <section id="services" className="bg-[#f0ece1] text-[#2c2a26] py-24 px-6 md:px-12 lg:px-24 font-sans border-t border-[#e0d8c8]">
       <div className="max-w-6xl mx-auto flex flex-col items-center">
         
         {/* Header */}

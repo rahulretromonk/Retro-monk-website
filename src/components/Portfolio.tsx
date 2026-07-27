@@ -25,7 +25,7 @@ const portfolioItems = [
   {
     title: "Birthday Celebrations",
     description: "Joyful gatherings documented with elegance, focusing on the shared laughter and sophisticated details of the occasion.",
-    image: "https://images.unsplash.com/photo-1530103862676-de3c9de59a9e?auto=format&fit=crop&q=80&w=1200",
+    image: "https://images.unsplash.com/photo-1558636508-e0db3814bd1d?auto=format&fit=crop&q=80&w=1200",
     imagePosition: "right"
   },
   {
@@ -44,7 +44,7 @@ const portfolioItems = [
 
 export const Portfolio = () => {
   return (
-    <section className="bg-[#FAF9F5] text-[#2c2a26] py-24 px-6 md:px-12 lg:px-24 font-sans overflow-hidden">
+    <section id="gallery" className="bg-[#FAF9F5] text-[#2c2a26] py-24 px-6 md:px-12 lg:px-24 font-sans overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col items-center">
         
         {/* Header */}
