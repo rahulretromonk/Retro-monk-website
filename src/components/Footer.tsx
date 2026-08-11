@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 export const Footer = () => {
   return (
@@ -14,17 +15,17 @@ export const Footer = () => {
       
       {/* Navigation */}
       <nav className="flex flex-wrap justify-center gap-6 md:gap-8 text-xs tracking-widest font-bold uppercase text-[#3a3731] mb-12">
-        <a href="#" className="hover:text-[#a88655] transition-colors">HOME</a>
-        <a href="#" className="hover:text-[#a88655] transition-colors">ABOUT</a>
-        <a href="#" className="hover:text-[#a88655] transition-colors">PORTFOLIO</a>
-        <a href="#" className="hover:text-[#a88655] transition-colors">SERVICES</a>
-        <a href="#" className="border-b border-[#3a3731] pb-1 hover:text-[#a88655] hover:border-[#a88655] transition-colors">CONTACT</a>
+        <Link href="/" className="hover:text-[#a88655] transition-colors">HOME</Link>
+        <Link href="/portfolio" className="hover:text-[#a88655] transition-colors">PORTFOLIO</Link>
+        <Link href="/#services" className="hover:text-[#a88655] transition-colors">SERVICES</Link>
+        <Link href="/#about" className="hover:text-[#a88655] transition-colors">ABOUT</Link>
+        <Link href="/#contact" className="border-b border-[#3a3731] pb-1 hover:text-[#a88655] hover:border-[#a88655] transition-colors">CONTACT</Link>
       </nav>
 
       {/* Social Icons */}
       <div className="flex gap-6 mb-20 text-[#6b675e]">
         {/* Instagram */}
-        <a href="#" className="hover:text-[#3a3731] transition-colors">
+        <a href="https://www.instagram.com/retromonkstudio?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="hover:text-[#3a3731] transition-colors">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5" strokeWidth="2"></rect>
             <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" strokeWidth="2"></path>
@@ -35,12 +36,6 @@ export const Footer = () => {
         <a href="#" className="hover:text-[#3a3731] transition-colors">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-          </svg>
-        </a>
-        {/* Pinterest */}
-        <a href="#" className="hover:text-[#3a3731] transition-colors">
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M21.2 11.2c0-5-4.1-9.2-9.2-9.2S2.8 6.2 2.8 11.2c0 3.9 2.5 7.2 6 8.5-.1-1-.1-2.4 0-3.4.2-.9 1.2-5.1 1.2-5.1s-.3-.6-.3-1.5c0-1.4.8-2.5 1.8-2.5.8 0 1.2.6 1.2 1.3 0 .8-.5 2-.8 3.1-.2.9.5 1.6 1.4 1.6 1.6 0 2.9-1.7 2.9-4.2 0-2.2-1.6-3.7-3.8-3.7-2.6 0-4.1 1.9-4.1 3.9 0 .8.3 1.6.7 2.1.1.1.1.2.1.3-.1.4-.3 1.1-.3 1.3 0 .2-.1.2-.3.1-1.3-.6-2.1-2.4-2.1-3.9 0-3.2 2.3-6.1 6.7-6.1 3.5 0 6.3 2.5 6.3 5.9 0 3.5-2.2 6.3-5.3 6.3-1 0-2-.5-2.3-1.2l-.6 2.4c-.2.8-.8 1.9-1.2 2.5a9.2 9.2 0 004 .9c5 0 9.2-4.1 9.2-9.2z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
           </svg>
         </a>
         {/* LinkedIn */}

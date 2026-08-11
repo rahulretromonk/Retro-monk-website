@@ -31,10 +31,9 @@ export function Header() {
 
   const navLinks = [
     { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Gallery', href: '/#gallery' },
     { name: 'Services', href: '/#services' },
     { name: 'About', href: '/#about' },
-    { name: 'Contact', href: '/#contact' },
+     { name: 'FAQ', href: '/#faq' },
   ];
 
   return (

@@ -21,24 +21,6 @@ const portfolioItems = [
     description: "Focused, soulful studies of character. A classic approach utilizing thoughtful light to reveal quiet confidence.",
     image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=1200",
     imagePosition: "left"
-  },
-  {
-    title: "Birthday Celebrations",
-    description: "Joyful gatherings documented with elegance, focusing on the shared laughter and sophisticated details of the occasion.",
-    image: "https://images.unsplash.com/photo-1558636508-e0db3814bd1d?auto=format&fit=crop&q=80&w=1200",
-    imagePosition: "right"
-  },
-  {
-    title: "Commercial Shoots",
-    description: "Translating brand ethos into compelling visual narratives with a polished, high-end editorial sensibility.",
-    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1200",
-    imagePosition: "left"
-  },
-  {
-    title: "Wild Trails\n(Personal Collection)",
-    description: "A personal exploration of the natural world, capturing the untamed beauty of wildlife in its purest form.",
-    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=1200",
-    imagePosition: "right"
   }
 ];
 

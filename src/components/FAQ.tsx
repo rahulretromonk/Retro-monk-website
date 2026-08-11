@@ -53,7 +53,7 @@ export const FAQ = () => {
   };
 
   return (
-    <section className="bg-[#f5f2eb] text-[#2c2a26] py-24 px-6 md:px-12 lg:px-24 font-sans border-t border-[#e8e4db]">
+    <section id="faq" className="bg-[#f5f2eb] text-[#2c2a26] py-24 px-6 md:px-12 lg:px-24 font-sans border-t border-[#e8e4db]">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
         
         {/* Header */}

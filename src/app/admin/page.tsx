@@ -298,40 +298,6 @@ export default function AdminDashboardPage() {
             )}
           </AdminCard>
         </div>
-
-        {/* Quick Tips & Status Widget */}
-        <div className="lg:col-span-1 flex flex-col gap-6">
-          <AdminCard radius="md" hoverLift={false} className="p-6 md:p-8 bg-[#F2EDE2]/60 border border-[#7A5848]/10 h-full flex flex-col justify-between">
-            <div>
-              <h3 className="text-lg font-serif font-black text-[#2D2D2D] tracking-wide border-b border-[#7A5848]/10 pb-4 mb-4 uppercase text-[11px] tracking-widest text-[#7A5848]">
-                Darkroom Assistant
-              </h3>
-              
-              <ul className="flex flex-col gap-4 font-sans text-xs text-[#7A5848] leading-relaxed">
-                <li className="flex gap-2.5 items-start">
-                  <CheckCircle size={14} className="text-[#355C4A] shrink-0 mt-0.5" />
-                  <span>Your images are automatically compressed and formatted dynamically (JPG/PNG/WEBP).</span>
-                </li>
-                <li className="flex gap-2.5 items-start">
-                  <CheckCircle size={14} className="text-[#355C4A] shrink-0 mt-0.5" />
-                  <span>Opt for high-resolution vertical uploads for portraits and horizontal crops for headers.</span>
-                </li>
-                <li className="flex gap-2.5 items-start">
-                  <CheckCircle size={14} className="text-[#355C4A] shrink-0 mt-0.5" />
-                  <span>The dashboard fallback system caches offline items locally when Supabase databases are empty.</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="mt-8 border-t border-[#7A5848]/10 pt-4 flex justify-between items-center text-[10px] font-sans text-[#7A5848]/60 font-bold uppercase">
-              <span>Database Connection</span>
-              <span className="flex items-center gap-1.5 text-[#355C4A]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#355C4A]" /> Fallback Cache Active
-              </span>
-            </div>
-          </AdminCard>
-        </div>
-
       </div>
 
     </div>

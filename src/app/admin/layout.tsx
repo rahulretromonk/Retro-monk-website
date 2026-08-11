@@ -37,10 +37,11 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [searchVal, setSearchVal] = useState('');
   const [profileName, setProfileName] = useState('Rahul');
   const [profileRole, setProfileRole] = useState('Chief Curator');
+
+  const [pendingInquiries, setPendingInquiries] = useState<any[]>([]);
 
   // 1. Auth check & profile loading
   useEffect(() => {
@@ -61,6 +62,20 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
       } catch (err) {
         console.error("Layout validation error:", err);
       }
+    }
+
+    // Fetch pending inquiries for notifications
+    if (isTokenValid) {
+      fetch('/api/admin/inquiries', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (Array.isArray(data)) {
+            setPendingInquiries(data.filter((item: any) => item.status === 'pending'));
+          }
+        })
+        .catch(err => console.error("Failed to fetch notifications:", err));
     }
 
     if (!isTokenValid && !pathname.endsWith('/admin/login') && pathname.startsWith('/admin')) {
@@ -220,7 +235,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         
         {/* Floating Top Header */}
         <header 
-          className="bg-[#FAF6EE]/80 backdrop-blur-md border border-[#7A5848]/10 shadow-sm p-4 md:px-8 md:py-5 flex items-center justify-between gap-4 mb-10"
+          className="relative z-50 bg-[#FAF6EE]/80 backdrop-blur-md border border-[#7A5848]/10 shadow-sm p-4 md:px-8 md:py-5 flex items-center justify-between gap-4 mb-10"
           style={{ borderRadius: '24px' }}
         >
           {/* Header Left (Title / Subtitle) */}
@@ -262,38 +277,35 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
                 className="w-10 h-10 rounded-full flex items-center justify-center bg-[#F2EDE2] border border-[#7A5848]/10 text-[#7A5848] hover:bg-[#E8DCCB]/40 cursor-pointer relative"
               >
                 <Bell size={15} />
-                <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#355C4A]" />
+                {pendingInquiries.length > 0 && <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#355C4A]" />}
               </button>
               
               {notificationsOpen && (
                 <div 
-                  className="absolute right-0 mt-2.5 w-64 bg-[#F7F3EC] border border-[#7A5848]/20 shadow-xl p-4 z-40 text-xs font-sans"
+                  className="absolute right-0 mt-2.5 w-64 bg-[#F7F3EC] border border-[#7A5848]/20 shadow-xl p-4 z-40 text-xs font-sans max-h-80 overflow-y-auto"
                   style={{ borderRadius: '20px' }}
                 >
-                  <p className="font-bold text-[#355C4A] border-b border-[#7A5848]/10 pb-2 mb-2 uppercase tracking-wider">
+                  <p className="font-bold text-[#355C4A] border-b border-[#7A5848]/10 pb-2 mb-2 uppercase tracking-wider flex justify-between items-center">
                     Notifications
+                    {pendingInquiries.length > 0 && (
+                      <span className="bg-[#355C4A] text-white text-[9px] px-1.5 py-0.5 rounded-full">{pendingInquiries.length}</span>
+                    )}
                   </p>
                   <div className="flex flex-col gap-2">
-                    <div className="pb-1.5 border-b border-[#7A5848]/5">
-                      <p className="font-semibold">New Inquiry received!</p>
-                      <p className="text-[10px] text-[#7A5848]/70 mt-0.5">Eleanor Vance requested Wedding coverage.</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold">System Alert</p>
-                      <p className="text-[10px] text-[#7A5848]/70 mt-0.5">Supabase tables are offline. Falling back to local storage.</p>
-                    </div>
+                    {pendingInquiries.length === 0 ? (
+                      <p className="text-[10px] text-[#7A5848]/70 italic">No new notifications.</p>
+                    ) : (
+                      pendingInquiries.map(inquiry => (
+                        <div key={inquiry.id} className="pb-1.5 border-b border-[#7A5848]/5 last:border-0">
+                          <p className="font-semibold text-[#355C4A]">New Inquiry received!</p>
+                          <p className="text-[10px] text-[#7A5848]/70 mt-0.5">{inquiry.name} requested {inquiry.service || 'services'}.</p>
+                        </div>
+                      ))
+                    )}
                   </div>
                 </div>
               )}
             </div>
-
-            {/* Theme Toggle */}
-            <button 
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="w-10 h-10 rounded-full flex items-center justify-center bg-[#F2EDE2] border border-[#7A5848]/10 text-[#7A5848] hover:bg-[#E8DCCB]/40 cursor-pointer"
-            >
-              {isDarkMode ? <Sun size={15} /> : <Moon size={15} />}
-            </button>
 
             {/* Profile Avatar */}
             <Link 

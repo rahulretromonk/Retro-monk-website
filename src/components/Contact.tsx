@@ -88,8 +88,8 @@ export const Contact = () => {
               </svg>
               <div>
                 <p className="text-[10px] tracking-widest text-[#3a3731] font-bold uppercase mb-1">Phone</p>
-                <a href="tel:+919789091854" className="text-[#6b675e] text-sm hover:text-[#a88655] transition-colors">
-                  +91 9789091854
+                <a href="tel:+917395921835" className="text-[#6b675e] text-sm hover:text-[#a88655] transition-colors">
+                  +91 7395921835
                 </a>
               </div>
             </div>
