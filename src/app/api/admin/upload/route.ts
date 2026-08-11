@@ -24,15 +24,7 @@ export async function POST(req: Request) {
     // Check if Cloudinary is configured
     const cloudName = process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
     if (!cloudName || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
-      // If Cloudinary keys are missing or invalid, return a mock success URL so UI does not break
-      console.warn("Cloudinary not fully configured. Returning a mock photo URL for demo.");
-      const randomId = Math.floor(Math.random() * 1000) + 150;
-      return NextResponse.json({
-        url: `https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=800&mock=${randomId}`,
-        publicId: `mock_upload_${Date.now()}`,
-        width: 800,
-        height: 600,
-      });
+      return NextResponse.json({ error: 'Cloudinary is not fully configured' }, { status: 500 });
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
@@ -53,12 +45,6 @@ export async function POST(req: Request) {
     });
   } catch (error: any) {
     console.error("Cloudinary upload error:", error);
-    // As a fail-safe, fall back to a mock image so testing is never blocked
-    return NextResponse.json({
-      url: `https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=800&fallback=true`,
-      publicId: `fallback_upload_${Date.now()}`,
-      width: 800,
-      height: 600,
-    });
+    return NextResponse.json({ error: 'Failed to upload image to Cloudinary' }, { status: 500 });
   }
 }
