@@ -51,11 +51,13 @@ export const AdminUpload = ({
     setProgress(10); // Simulated initial progress
 
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      // We read the token from localStorage (set during auth)
       const token = typeof window !== 'undefined' ? localStorage.getItem('admin_token') : null;
+      const headers: Record<string, string> = {
+        'Content-Type': file.type,
+      };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
 
       // Simulate progress ring filling up while POST request runs
       const progressInterval = setInterval(() => {
@@ -64,8 +66,8 @@ export const AdminUpload = ({
 
       const response = await fetch('/api/admin/upload', {
         method: 'POST',
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-        body: formData,
+        headers,
+        body: file, // Send raw file to bypass Next.js FormData limits
       });
 
       clearInterval(progressInterval);

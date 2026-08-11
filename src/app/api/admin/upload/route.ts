@@ -15,9 +15,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const formData = await req.formData();
-    const file = formData.get('file') as File | null;
-    if (!file) {
+    const buffer = Buffer.from(await req.arrayBuffer());
+    if (!buffer || buffer.length === 0) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
     }
 
@@ -26,8 +25,6 @@ export async function POST(req: Request) {
     if (!cloudName || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
       return NextResponse.json({ error: 'Cloudinary is not fully configured' }, { status: 500 });
     }
-
-    const buffer = Buffer.from(await file.arrayBuffer());
 
     const result = await new Promise<any>((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
