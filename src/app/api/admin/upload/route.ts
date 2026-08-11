@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 
     const result = await new Promise<any>((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
-        { folder: 'retro-monk/portfolio' },
+        { folder: 'retro-monk/portfolio', resource_type: 'auto' },
         (error, result) => (error ? reject(error) : resolve(result))
       );
       stream.end(buffer);

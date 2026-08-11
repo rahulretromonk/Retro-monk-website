@@ -25,9 +25,23 @@ export const AdminUpload = ({
 
   const handleUpload = async (file: File) => {
     // Validation
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'video/mp4', 'video/webm'];
     if (!allowedTypes.includes(file.type)) {
-      toast('error', 'Invalid file type. Only JPG, JPEG, PNG, and WEBP are accepted.');
+      toast('error', 'Invalid file type. Only JPG, PNG, WEBP, and MP4/WEBM videos are accepted.');
+      return;
+    }
+    
+    const isVideo = file.type.startsWith('video/');
+    const MAX_VIDEO_SIZE = 100 * 1024 * 1024; // 100MB
+    const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
+
+    if (isVideo && file.size > MAX_VIDEO_SIZE) {
+      toast('error', 'Video is too large. Maximum allowed size is 100MB.');
+      return;
+    }
+
+    if (!isVideo && file.size > MAX_IMAGE_SIZE) {
+      toast('error', 'Image is too large. Maximum allowed size is 10MB.');
       return;
     }
 
@@ -108,11 +122,21 @@ export const AdminUpload = ({
       >
         {value && !isUploading ? (
           <>
-            <img 
-              src={value} 
-              alt="Preview" 
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
+            {value.toLowerCase().endsWith('.mp4') || value.toLowerCase().endsWith('.webm') ? (
+              <video 
+                src={value} 
+                autoPlay 
+                muted 
+                loop 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            ) : (
+              <img 
+                src={value} 
+                alt="Preview" 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            )}
             {/* Hover overlay */}
             <div className="absolute inset-0 bg-[#2D2D2D]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
               <RefreshCw size={24} className="animate-pulse" />
@@ -154,7 +178,7 @@ export const AdminUpload = ({
               Click to Upload
             </span>
             <span className="text-[8px] font-sans text-[#7A5848]/50 mt-1">
-              JPG, PNG, WEBP
+              JPG, PNG, WEBP, MP4
             </span>
           </div>
         )}
@@ -164,7 +188,7 @@ export const AdminUpload = ({
         type="file"
         ref={fileInputRef}
         onChange={handleFileChange}
-        accept=".jpg,.jpeg,.png,.webp"
+        accept=".jpg,.jpeg,.png,.webp,.mp4,.webm"
         className="hidden"
       />
 
