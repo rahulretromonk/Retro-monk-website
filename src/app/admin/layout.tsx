@@ -160,10 +160,12 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
           {/* Logo Section */}
           <div className="flex items-center justify-between">
             <Link href="/" className="flex flex-col">
-              <span className="text-xl font-serif font-black tracking-wide text-[#7A5848]">
-                Retro monk
-              </span>
-              <span className="text-[10px] font-sans font-bold tracking-widest text-[#355C4A] uppercase">
+              <img 
+                src="/llooggoo.png" 
+                alt="Retro Monk" 
+                className="h-12 w-auto object-contain mb-1" 
+              />
+              <span className="text-[10px] font-sans font-bold tracking-widest text-[#355C4A] uppercase ml-1">
                 Studio Admin
               </span>
             </Link>

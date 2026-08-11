@@ -36,12 +36,14 @@ export const AdminUpload = ({
     const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
 
     if (isVideo && file.size > MAX_VIDEO_SIZE) {
-      toast('error', 'Video is too large. Maximum allowed size is 100MB.');
+      const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
+      toast('error', `Video is too large (${sizeMB}MB). Maximum allowed size is 100MB.`);
       return;
     }
 
     if (!isVideo && file.size > MAX_IMAGE_SIZE) {
-      toast('error', 'Image is too large. Maximum allowed size is 10MB.');
+      const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
+      toast('error', `Image is too large (${sizeMB}MB). Maximum allowed size is 10MB.`);
       return;
     }
 
@@ -188,7 +190,7 @@ export const AdminUpload = ({
         type="file"
         ref={fileInputRef}
         onChange={handleFileChange}
-        accept=".jpg,.jpeg,.png,.webp,.mp4,.webm"
+        accept="image/*,video/mp4,video/webm"
         className="hidden"
       />
 

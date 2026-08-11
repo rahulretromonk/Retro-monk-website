@@ -75,9 +75,13 @@ export default function AdminLoginPage() {
           <span className="text-[10px] font-sans font-black tracking-widest text-[#355C4A] uppercase bg-[#355C4A]/10 px-4 py-1.5 rounded-full">
             Staff portal
           </span>
-          <h2 className="text-3xl md:text-4xl font-serif font-black text-[#7A5848] mt-4 tracking-wide leading-tight">
-            Retro monk
-          </h2>
+          <div className="flex justify-center mt-6">
+            <img 
+              src="/llooggoo.png" 
+              alt="Retro Monk" 
+              className="h-16 md:h-20 w-auto object-contain" 
+            />
+          </div>
           <p className="text-xs text-[#7A5848]/70 mt-1 italic font-serif">
             Timeless details, managed with intention
           </p>
