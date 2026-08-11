@@ -52,7 +52,12 @@ export function useTestimonials() {
       });
 
       if (!response.ok) {
-        const errData = await response.json();
+        let errData;
+        try {
+          errData = await response.json();
+        } catch {
+          errData = { error: 'Failed to create testimonial (Server returned non-JSON response)' };
+        }
         throw new Error(errData.error || 'Failed to create testimonial');
       }
 
@@ -79,7 +84,12 @@ export function useTestimonials() {
       });
 
       if (!response.ok) {
-        const errData = await response.json();
+        let errData;
+        try {
+          errData = await response.json();
+        } catch {
+          errData = { error: 'Failed to update testimonial (Server returned non-JSON response)' };
+        }
         throw new Error(errData.error || 'Failed to update testimonial');
       }
 
@@ -105,7 +115,12 @@ export function useTestimonials() {
       });
 
       if (!response.ok) {
-        const errData = await response.json();
+        let errData;
+        try {
+          errData = await response.json();
+        } catch {
+          errData = { error: 'Failed to delete testimonial (Server returned non-JSON response)' };
+        }
         throw new Error(errData.error || 'Failed to delete testimonial');
       }
 

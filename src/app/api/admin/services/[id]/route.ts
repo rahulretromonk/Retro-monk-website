@@ -37,6 +37,15 @@ export async function DELETE(
     }
 
     const { id } = await params;
+
+    const allServices = await db.getServices();
+    const serviceItem = allServices.find((item: any) => item.id === id);
+
+    if (serviceItem && serviceItem.publicId) {
+      const { deleteImageFromCloudinary } = await import('@/lib/cloudinary');
+      await deleteImageFromCloudinary(serviceItem.publicId);
+    }
+
     const deleted = await db.deleteService(id);
     
     if (!deleted) {

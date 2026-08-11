@@ -1,9 +1,8 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@supabase/supabase-js';
 import { motion } from 'framer-motion';
-import { LogIn, Sparkles } from 'lucide-react';
+import { LogIn } from 'lucide-react';
 import { AdminInput } from '@/components/admin/ui/AdminInput';
 import { AdminButton } from '@/components/admin/ui/AdminButton';
 import { useToast } from '@/components/admin/ui/AdminToast';
@@ -15,7 +14,6 @@ export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isDemoLoading, setIsDemoLoading] = useState(false);
 
   // Redirect if already logged in
   useEffect(() => {
@@ -57,26 +55,6 @@ export default function AdminLoginPage() {
        setIsLoading(false);
      }
    };
- 
-   const handleDemoAccess = async () => {
-     setIsDemoLoading(true);
-     try {
-       const response = await fetch('/api/admin/login', {
-         method: 'POST',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({ email: 'retromonk.office@gmail.com', password: 'adminpassword' })
-       });
-       const data = await response.json();
-       if (!response.ok) throw new Error(data.error);
-       localStorage.setItem('admin_token', data.token);
-       toast('success', 'Logged in as administrator (Demo Mode enabled)');
-       router.push('/admin');
-     } catch (err: any) {
-       toast('error', 'Failed to initialize demo access token.');
-     } finally {
-       setIsDemoLoading(false);
-     }
-   };
 
   return (
     <div className="min-h-screen bg-[#F4F0EA] flex items-center justify-center p-6 relative overflow-hidden font-sans">
@@ -113,7 +91,7 @@ export default function AdminLoginPage() {
             placeholder="retromonk.office@gmail.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            disabled={isLoading || isDemoLoading}
+            disabled={isLoading}
           />
           <AdminInput
             label="Password"
@@ -121,45 +99,18 @@ export default function AdminLoginPage() {
             placeholder="••••••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            disabled={isLoading || isDemoLoading}
+            disabled={isLoading}
           />
 
           <AdminButton
             type="submit"
             variant="primary"
             isLoading={isLoading}
-            disabled={isDemoLoading}
             className="w-full mt-4"
           >
             <LogIn size={15} className="mr-2" /> Sign In
           </AdminButton>
         </form>
-
-        <div className="relative my-8 text-center">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-[#7A5848]/15" />
-          </div>
-          <span className="relative bg-[#F7F3EC] px-4 text-[10px] font-bold tracking-widest text-[#7A5848]/50 uppercase">
-            OR
-          </span>
-        </div>
-
-        {/* Demo mode quick entrance */}
-        <div className="flex flex-col items-center">
-          <p className="text-[10px] text-[#7A5848]/70 text-center mb-3">
-            Want to review the dashboard layout and features immediately?
-          </p>
-          <AdminButton
-            type="button"
-            variant="outline"
-            onClick={handleDemoAccess}
-            isLoading={isDemoLoading}
-            disabled={isLoading}
-            className="w-full border-[#355C4A]/40 text-[#355C4A] hover:bg-[#355C4A]/10 flex items-center justify-center gap-1.5"
-          >
-            <Sparkles size={14} /> Explore Demo Mode
-          </AdminButton>
-        </div>
 
       </motion.div>
     </div>

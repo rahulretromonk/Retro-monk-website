@@ -41,9 +41,11 @@ export function Header() {
     <header className="w-full bg-[#F4F0EA] pt-6 pb-4 sticky top-0 z-[100] shadow-sm">
       <div className="max-w-[1400px] mx-auto flex items-center justify-between px-6 md:px-8 relative">
         <Link href="/" className="flex items-center">
-          <span className="text-2xl md:text-3xl font-serif text-[#333333] tracking-wide">
-            RETRO MONK
-          </span>
+          <img 
+            src="/llooggoo.png" 
+            alt="Retro Monk" 
+            className="h-10 md:h-12 w-auto object-contain" 
+          />
         </Link>
 
         {/* Desktop Navigation */}

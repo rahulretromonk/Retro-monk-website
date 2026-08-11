@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { User, Key, Database, Save, Info } from 'lucide-react';
+import { User, Key, Save, Info } from 'lucide-react';
 import { AdminCard } from '@/components/admin/ui/AdminCard';
 import { AdminInput } from '@/components/admin/ui/AdminInput';
 import { AdminButton } from '@/components/admin/ui/AdminButton';
@@ -157,53 +157,6 @@ export default function SettingsAdminPage() {
         </motion.div>
 
       </div>
-
-      {/* Database Connection / Environment Variables Diagnostic */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.4 }}
-      >
-        <AdminCard radius="md" hoverLift={false} className="p-6 md:p-8 bg-[#F2EDE2]/60 border border-[#7A5848]/10">
-          <h3 className="text-lg font-serif font-black text-[#2D2D2D] tracking-wide border-b border-[#7A5848]/10 pb-4 mb-4 flex items-center gap-2">
-            <Database size={18} className="text-[#355C4A]" /> Diagnostics & Environment Variables
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-sans">
-            <div className="flex flex-col gap-2">
-              <span className="font-bold text-[#7A5848] uppercase text-[10px] tracking-wider">Supabase Connection Settings</span>
-              <div className="flex justify-between py-1 border-b border-[#7A5848]/5">
-                <span className="text-[#7A5848]/70">Supabase Service Url</span>
-                <code className="text-[#355C4A] font-mono select-all">https://qrcffyxwzol...</code>
-              </div>
-              <div className="flex justify-between py-1 border-b border-[#7A5848]/5">
-                <span className="text-[#7A5848]/70">Publishable Key Status</span>
-                <span className="text-[#355C4A] font-bold">Configured (sb_pub...)</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-[#7A5848]/5">
-                <span className="text-[#7A5848]/70">Tables State</span>
-                <span className="text-amber-700 font-bold">Fallback Local JSON Active</span>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <span className="font-bold text-[#7A5848] uppercase text-[10px] tracking-wider">Cloudinary Upload Status</span>
-              <div className="flex justify-between py-1 border-b border-[#7A5848]/5">
-                <span className="text-[#7A5848]/70">Cloud Name</span>
-                <code className="text-[#355C4A] font-mono">v5svoex0</code>
-              </div>
-              <div className="flex justify-between py-1 border-b border-[#7A5848]/5">
-                <span className="text-[#7A5848]/70">API Secret Status</span>
-                <span className="text-[#355C4A] font-bold">Active / Configured</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-[#7A5848]/5">
-                <span className="text-[#7A5848]/70">Bypass Mode Status</span>
-                <span className="text-[#355C4A] font-bold">Demo Mode Permitted</span>
-              </div>
-            </div>
-          </div>
-        </AdminCard>
-      </motion.div>
 
     </div>
   );

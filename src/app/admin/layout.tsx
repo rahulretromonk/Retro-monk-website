@@ -26,7 +26,7 @@ const NAV_ITEMS = [
   { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
   { label: 'Portfolio', path: '/admin/portfolio', icon: Camera },
   { label: 'Services', path: '/admin/services', icon: ClipboardList },
-  { label: 'Testimonials', path: '/admin/testimonials', icon: MessageSquare },
+  // { label: 'Testimonials', path: '/admin/testimonials', icon: MessageSquare },
   { label: 'FAQ', path: '/admin/faq', icon: HelpCircle },
   { label: 'Inquiries', path: '/admin/inquiries', icon: Inbox },
 ];

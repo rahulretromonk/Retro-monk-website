@@ -37,6 +37,19 @@ export async function DELETE(
     }
 
     const { id } = await params;
+    
+    // 1. Fetch the portfolio item to get its publicId
+    const allPortfolio = await db.getPortfolio();
+    const portfolioItem = allPortfolio.find((item: any) => item.id === id);
+
+    // 2. Delete the image from Cloudinary if it has a publicId
+    if (portfolioItem && portfolioItem.publicId) {
+      // Import this at the top of the file dynamically or add to imports
+      const { deleteImageFromCloudinary } = await import('@/lib/cloudinary');
+      await deleteImageFromCloudinary(portfolioItem.publicId);
+    }
+
+    // 3. Delete from DB
     const deleted = await db.deletePortfolio(id);
     
     if (!deleted) {

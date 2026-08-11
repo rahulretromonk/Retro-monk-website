@@ -37,6 +37,15 @@ export async function DELETE(
     }
 
     const { id } = await params;
+
+    const allTestimonials = await db.getTestimonials();
+    const testimonialItem = allTestimonials.find((item: any) => item.id === id);
+
+    if (testimonialItem && testimonialItem.publicId) {
+      const { deleteImageFromCloudinary } = await import('@/lib/cloudinary');
+      await deleteImageFromCloudinary(testimonialItem.publicId);
+    }
+
     const deleted = await db.deleteTestimonial(id);
     
     if (!deleted) {
