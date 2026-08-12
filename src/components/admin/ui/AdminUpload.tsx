@@ -48,49 +48,132 @@ export const AdminUpload = ({
     }
 
     setIsUploading(true);
-    setProgress(10); // Simulated initial progress
+    setProgress(0); // Start at 0 for real progress
+
+    const uploadToCloudinary = (
+      file: File,
+      signature: string,
+      timestamp: number,
+      apiKey: string,
+      cloudName: string,
+      folder: string
+    ): Promise<any> => {
+      return new Promise((resolve, reject) => {
+        const formData = new FormData();
+    
+        formData.append('file', file);
+        formData.append('api_key', apiKey);
+        formData.append('timestamp', timestamp.toString());
+        formData.append('signature', signature);
+        formData.append('folder', folder);
+    
+        const xhr = new XMLHttpRequest();
+    
+        xhr.open(
+          'POST',
+          `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`
+        );
+    
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            const percent = Math.round(
+              (event.loaded / event.total) * 100
+            );
+            setProgress(percent);
+          }
+        };
+    
+        xhr.onload = () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve(JSON.parse(xhr.responseText));
+          } else {
+            reject(
+              new Error(
+                `Cloudinary upload failed: ${xhr.status}`
+              )
+            );
+          }
+        };
+    
+        xhr.onerror = () => {
+          reject(new Error('Network error during Cloudinary upload'));
+        };
+    
+        xhr.onabort = () => {
+          reject(new Error('Upload cancelled'));
+        };
+    
+        xhr.send(formData);
+      });
+    };
 
     try {
-      const token = typeof window !== 'undefined' ? localStorage.getItem('admin_token') : null;
-      const headers: Record<string, string> = {
-        'Content-Type': file.type,
-      };
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
+      const token =
+        typeof window !== 'undefined'
+          ? localStorage.getItem('admin_token')
+          : null;
+
+      // 1. Get signed upload parameters from our server
+      const signatureResponse = await fetch(
+        '/api/admin/upload-signature',
+        {
+          method: 'POST',
+          headers: token
+            ? {
+                Authorization: `Bearer ${token}`,
+              }
+            : {},
+        }
+      );
+
+      if (!signatureResponse.ok) {
+        throw new Error('Failed to get Cloudinary signature');
       }
 
-      // Simulate progress ring filling up while POST request runs
-      const progressInterval = setInterval(() => {
-        setProgress((prev) => (prev < 90 ? prev + 10 : prev));
-      }, 200);
+      const {
+        signature,
+        timestamp,
+        apiKey,
+        cloudName,
+        folder,
+      } = await signatureResponse.json();
 
-      const response = await fetch('/api/admin/upload', {
-        method: 'POST',
-        headers,
-        body: file, // Send raw file to bypass Next.js FormData limits
-      });
+      // 2. Upload DIRECTLY to Cloudinary
+      const result = await uploadToCloudinary(
+        file,
+        signature,
+        timestamp,
+        apiKey,
+        cloudName,
+        folder
+      );
 
-      clearInterval(progressInterval);
+      // 3. Cloudinary response
+      onChange(
+        result.secure_url,
+        result.public_id
+      );
+
       setProgress(100);
 
-      if (!response.ok) {
-        throw new Error('Upload failed');
-      }
-
-      const data = await response.json();
-      onChange(data.url, data.publicId);
-      toast('success', 'Image uploaded successfully!');
+      toast(
+        'success',
+        isVideo
+          ? 'Video uploaded successfully!'
+          : 'Image uploaded successfully!'
+      );
     } catch (err) {
-      console.error(err);
-      toast('error', 'Failed to upload image. Using local fallback simulation.');
-      // Fail-safe fallback image
-      const fallbackUrl = `https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=800&mock=${Date.now()}`;
-      onChange(fallbackUrl, `mock_upload_${Date.now()}`);
+      console.error('Upload error:', err);
+
+      toast(
+        'error',
+        'Failed to upload file. Please try again.'
+      );
     } finally {
       setTimeout(() => {
         setIsUploading(false);
         setProgress(0);
-      }, 400);
+      }, 500);
     }
   };
 
