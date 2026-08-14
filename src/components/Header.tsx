@@ -37,13 +37,13 @@ export function Header() {
   ];
 
   return (
-    <header className="w-full bg-[#F4F0EA] pt-6 pb-4 sticky top-0 z-[100] shadow-sm">
+    <header className="w-full absolute md:sticky top-0 z-[100] bg-transparent md:bg-[#F4F0EA] md:shadow-sm pt-6 pb-4">
       <div className="max-w-[1400px] mx-auto flex items-center justify-between px-6 md:px-8 relative">
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 z-10">
           <img 
             src="/llooggoo.png" 
             alt="Retro Monk" 
-            className="h-10 md:h-12 w-auto object-contain" 
+            className="h-10 md:h-12 w-auto object-contain brightness-0 invert md:brightness-100 md:invert-0" 
           />
         </Link>
 
@@ -87,7 +87,7 @@ export function Header() {
 
         {/* Mobile Hamburger Toggle */}
         <button 
-          className="md:hidden p-2 text-[#5A5A5A] hover:text-[#A05C3C] transition-colors"
+          className="md:hidden p-2 text-white md:text-[#5A5A5A] hover:text-gray-200 md:hover:text-[#A05C3C] transition-colors ml-auto z-10 drop-shadow-md"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
