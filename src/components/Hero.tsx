@@ -103,7 +103,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative flex flex-col items-center justify-center md:justify-start min-h-[100svh] pt-0 md:pt-16 lg:pt-24 px-0 md:px-4 overflow-hidden bg-black md:bg-[#F4F0EA]">
+    <section className="relative flex flex-col items-center justify-start min-h-[100svh] pt-0 md:pt-16 lg:pt-24 px-0 md:px-4 overflow-hidden bg-[#F4F0EA]">
       
       {/* DESKTOP ONLY: Fan Cards Container */}
       <div className="hidden lg:flex relative w-full max-w-5xl h-[450px] justify-center items-start mt-10 z-10">
@@ -141,7 +141,7 @@ export function Hero() {
 
       {/* MOBILE/TABLET ONLY: Sliding Image Card */}
       <div 
-        className="absolute md:relative inset-0 md:inset-auto flex lg:hidden w-full h-[100svh] md:h-[500px] md:w-[75vw] md:mt-6 md:mb-8 rounded-none md:rounded-[24px] overflow-hidden shadow-none md:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] z-0"
+        className="relative flex lg:hidden w-full h-[100svh] md:h-[500px] md:w-[75vw] md:mt-6 mb-8 md:mb-8 rounded-none md:rounded-[24px] overflow-hidden shadow-md md:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] z-0"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onTouchStart={() => setIsHovered(true)}
@@ -165,8 +165,6 @@ export function Hero() {
           />
         </AnimatePresence>
         <div className="absolute inset-0 bg-black/10 pointer-events-none mix-blend-overlay"></div>
-        {/* Gradient overlay to make white text readable on mobile */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/70 pointer-events-none md:hidden"></div>
 
         {/* MOBILE/TABLET ONLY: Pagination Dots (Overlay at Bottom) */}
         <div className="absolute bottom-10 md:bottom-6 left-0 right-0 flex justify-center items-center gap-3 z-20">
@@ -187,23 +185,23 @@ export function Hero() {
 
       {/* Shared Typography and Buttons */}
       <motion.div 
-        className="relative z-10 text-center max-w-3xl px-6 flex flex-col items-center justify-center w-full"
+        className="relative z-10 text-center max-w-3xl px-6 flex flex-col items-center justify-start w-full mb-12 md:mb-0 mt-2 md:mt-12"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: stage >= 1 ? 1 : 0, y: stage >= 1 ? 0 : 30 }}
         transition={{ duration: 1, delay: 1.5 }}
       >
-        <h1 className="text-4xl md:text-5xl lg:text-[4.5rem] leading-[1.1] font-serif mb-5 lg:mb-6 text-white md:text-[#A05C3C] drop-shadow-lg md:drop-shadow-none">
+        <h1 className="text-4xl md:text-5xl lg:text-[4.5rem] leading-[1.1] font-serif mb-6 text-[#A05C3C]">
           Capturing Moments<br />Through Every Frame
         </h1>
-        <p className="text-white/90 md:text-[#8C6D5D] text-base md:text-lg lg:text-xl max-w-xl lg:max-w-2xl mx-auto mb-8 lg:mb-10 font-serif leading-relaxed drop-shadow-md md:drop-shadow-none">
+        <p className="hidden md:block text-[#8C6D5D] text-lg lg:text-xl max-w-xl lg:max-w-2xl mx-auto mb-10 font-serif leading-relaxed">
           A curated collection of timeless moments, meticulously crafted to preserve the elegance and authenticity of your legacy.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center mb-10 lg:mb-3 gap-4 lg:gap-6 w-full max-w-sm sm:max-w-none">
-          <Link href="/portfolio" className="inline-block text-center bg-white md:bg-[#2D3741] text-[#2c2a26] md:text-white text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-gray-100 md:hover:bg-[#1E252C] transition-colors rounded-full shadow-lg md:shadow-none">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6 w-full max-w-sm sm:max-w-none">
+          <Link href="/portfolio" className="inline-block text-center bg-[#2D3741] text-[#F4F0EA] md:text-white text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-[#1E252C] transition-colors rounded-full shadow-md md:shadow-none">
             View Portfolio
           </Link>
-          <button className="bg-transparent border border-white md:border-[#A05C3C] text-white md:text-[#333333] text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-white/10 md:hover:bg-[#F5F1E8]/5 transition-colors rounded-full shadow-lg md:shadow-none">
+          <button className="bg-transparent border border-[#A05C3C] text-[#333333] text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-[#F5F1E8]/5 transition-colors rounded-full shadow-md md:shadow-none">
             Book A Session
           </button>
         </div>

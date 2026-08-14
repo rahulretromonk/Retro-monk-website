@@ -47,20 +47,27 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setIsMounted(true);
     const token = localStorage.getItem('admin_token');
+    const loginTime = localStorage.getItem('admin_login_time');
     
     let isTokenValid = false;
-    if (token) {
-      try {
-        const parts = token.split('.');
-        if (parts.length === 3) {
-          const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
-          const now = Math.floor(Date.now() / 1000);
-          if (payload.exp && now < payload.exp) {
-            isTokenValid = true;
+    if (token && loginTime) {
+      const now = Date.now();
+      const loginTimeMs = parseInt(loginTime, 10);
+      const SESSION_TIMEOUT = 2 * 60 * 60 * 1000; // 2 hours
+
+      if (now - loginTimeMs < SESSION_TIMEOUT) {
+        try {
+          const parts = token.split('.');
+          if (parts.length === 3) {
+            const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+            const nowSec = Math.floor(now / 1000);
+            if (!payload.exp || nowSec < payload.exp) {
+              isTokenValid = true;
+            }
           }
+        } catch (err) {
+          console.error("Layout validation error:", err);
         }
-      } catch (err) {
-        console.error("Layout validation error:", err);
       }
     }
 
@@ -83,6 +90,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
 
     if (!isTokenValid && !pathname.endsWith('/admin/login') && pathname.startsWith('/admin')) {
       localStorage.removeItem('admin_token');
+      localStorage.removeItem('admin_login_time');
       router.push('/admin/login');
     }
 
@@ -116,6 +124,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
 
   const handleLogout = () => {
     localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_login_time');
     router.push('/admin/login');
   };
 

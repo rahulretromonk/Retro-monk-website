@@ -18,9 +18,18 @@ export default function AdminLoginPage() {
   // Redirect if already logged in
   useEffect(() => {
     const token = localStorage.getItem('admin_token');
-    if (token) {
-      router.push('/admin');
+    const loginTime = localStorage.getItem('admin_login_time');
+    
+    if (token && loginTime) {
+      if (Date.now() - parseInt(loginTime, 10) < 7200000) {
+        router.push('/admin');
+        return;
+      }
     }
+    
+    // Clear expired or invalid session data
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_login_time');
   }, [router]);
 
   const handleSignIn = async (e: React.FormEvent) => {
@@ -41,11 +50,12 @@ export default function AdminLoginPage() {
        if (!response.ok) {
          throw new Error(data.error || 'Authentication failed');
        }
-       if (data.token) {
-         localStorage.setItem('admin_token', data.token);
-         toast('success', 'Welcome back! Authentication successful.');
-         router.push('/admin');
-       } else {
+        if (data.token) {
+          localStorage.setItem('admin_token', data.token);
+          localStorage.setItem('admin_login_time', Date.now().toString());
+          toast('success', 'Welcome back! Authentication successful.');
+          router.push('/admin');
+        } else {
          throw new Error('Failed to retrieve session token.');
        }
      } catch (err: any) {
@@ -88,22 +98,26 @@ export default function AdminLoginPage() {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSignIn} className="flex flex-col gap-1">
+        <form onSubmit={handleSignIn} className="flex flex-col gap-1" autoComplete="off">
           <AdminInput
             label="Email Address"
             type="email"
-            placeholder="retromonk.office@gmail.com"
+            name="admin_email_input"
+            placeholder="admin@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={isLoading}
+            autoComplete="off"
           />
           <AdminInput
             label="Password"
             type="password"
+            name="admin_password_input"
             placeholder="••••••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isLoading}
+            autoComplete="new-password"
           />
 
           <AdminButton
