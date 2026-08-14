@@ -30,6 +30,7 @@ const CATEGORIES = [
   { value: 'BIRTHDAY', label: 'Birthday' },
   { value: 'COMMERCIAL', label: 'Commercial' },
   { value: 'PERSONAL', label: 'Personal' },
+  { value: 'OTHERS', label: 'Others' },
 ];
 
 const POSITION_OPTIONS = [
@@ -250,11 +251,22 @@ export default function PortfolioAdminPage() {
                 
                 {/* Image Container with Hover reveal */}
                 <div className="relative aspect-[4/3] w-full rounded-[24px] overflow-hidden bg-[#E8DCCB] mb-5">
-                  <img
-                    src={item.imageUrl}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  {item.imageUrl.toLowerCase().endsWith('.mp4') || item.imageUrl.toLowerCase().endsWith('.webm') ? (
+                    <video
+                      src={item.imageUrl}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <img
+                      src={item.imageUrl}
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  )}
                   
                   {/* Category Pill Overlays */}
                   <div className="absolute top-4 left-4 z-10 flex gap-2">
@@ -418,11 +430,20 @@ export default function PortfolioAdminPage() {
               exit={{ scale: 0.9, opacity: 0 }}
               className="relative max-w-4xl max-h-[85vh] w-full h-full flex items-center justify-center z-50"
             >
-              <img
-                src={previewImageUrl}
-                alt="Full Preview"
-                className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl border border-white/10"
-              />
+              {previewImageUrl.toLowerCase().endsWith('.mp4') || previewImageUrl.toLowerCase().endsWith('.webm') ? (
+                <video
+                  src={previewImageUrl}
+                  autoPlay
+                  controls
+                  className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl border border-white/10"
+                />
+              ) : (
+                <img
+                  src={previewImageUrl}
+                  alt="Full Preview"
+                  className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl border border-white/10"
+                />
+              )}
               <button
                 onClick={() => setPreviewImageUrl(null)}
                 className="absolute top-4 right-4 bg-black/40 text-white rounded-full p-2.5 hover:bg-black/60 transition-all cursor-pointer"

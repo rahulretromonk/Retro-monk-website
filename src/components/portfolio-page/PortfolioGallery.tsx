@@ -1,76 +1,21 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 
-const categories = ["ALL", "WEDDING", "OUTDOOR", "PORTRAIT", "BIRTHDAY", "COMMERCIAL", "PERSONAL"];
-
-const images = [
-  { id: 1, src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=601", category: "WEDDING", aspect: "aspect-[4/3]" },
-  { id: 2, src: "https://images.unsplash.com/photo-1595981267035-7b04d84d5f19?auto=format&fit=crop&q=80&w=602", category: "WEDDING", aspect: "aspect-square" },
-  { id: 3, src: "https://images.unsplash.com/photo-1520113110260-032a2c5a2c4e?auto=format&fit=crop&q=80&w=603", category: "WEDDING", aspect: "aspect-[3/4]" },
-  { id: 4, src: "https://images.unsplash.com/photo-1558981420-8ceaa10f1712?auto=format&fit=crop&q=80&w=604", category: "WEDDING", aspect: "aspect-[4/3]" },
-  { id: 5, src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=605", category: "WEDDING", aspect: "aspect-square" },
-  { id: 6, src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=606", category: "WEDDING", aspect: "aspect-[3/4]" },
-  { id: 7, src: "https://images.unsplash.com/photo-1481691238472-353272e2764b?auto=format&fit=crop&q=80&w=607", category: "WEDDING", aspect: "aspect-[4/3]" },
-  { id: 8, src: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=608", category: "WEDDING", aspect: "aspect-square" },
-  { id: 9, src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=609", category: "WEDDING", aspect: "aspect-[3/4]" },
-  { id: 10, src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=600", category: "WEDDING", aspect: "aspect-[4/3]" },
-  { id: 11, src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=601", category: "OUTDOOR", aspect: "aspect-square" },
-  { id: 12, src: "https://images.unsplash.com/photo-1595981267035-7b04d84d5f19?auto=format&fit=crop&q=80&w=602", category: "OUTDOOR", aspect: "aspect-[3/4]" },
-  { id: 13, src: "https://images.unsplash.com/photo-1520113110260-032a2c5a2c4e?auto=format&fit=crop&q=80&w=603", category: "OUTDOOR", aspect: "aspect-[4/3]" },
-  { id: 14, src: "https://images.unsplash.com/photo-1558981420-8ceaa10f1712?auto=format&fit=crop&q=80&w=604", category: "OUTDOOR", aspect: "aspect-square" },
-  { id: 15, src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=605", category: "OUTDOOR", aspect: "aspect-[3/4]" },
-  { id: 16, src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=606", category: "OUTDOOR", aspect: "aspect-[4/3]" },
-  { id: 17, src: "https://images.unsplash.com/photo-1481691238472-353272e2764b?auto=format&fit=crop&q=80&w=607", category: "OUTDOOR", aspect: "aspect-square" },
-  { id: 18, src: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=608", category: "OUTDOOR", aspect: "aspect-[3/4]" },
-  { id: 19, src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=609", category: "OUTDOOR", aspect: "aspect-[4/3]" },
-  { id: 20, src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=600", category: "OUTDOOR", aspect: "aspect-square" },
-  { id: 21, src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=601", category: "PORTRAIT", aspect: "aspect-[3/4]" },
-  { id: 22, src: "https://images.unsplash.com/photo-1595981267035-7b04d84d5f19?auto=format&fit=crop&q=80&w=602", category: "PORTRAIT", aspect: "aspect-[4/3]" },
-  { id: 23, src: "https://images.unsplash.com/photo-1520113110260-032a2c5a2c4e?auto=format&fit=crop&q=80&w=603", category: "PORTRAIT", aspect: "aspect-square" },
-  { id: 24, src: "https://images.unsplash.com/photo-1558981420-8ceaa10f1712?auto=format&fit=crop&q=80&w=604", category: "PORTRAIT", aspect: "aspect-[3/4]" },
-  { id: 25, src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=605", category: "PORTRAIT", aspect: "aspect-[4/3]" },
-  { id: 26, src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=606", category: "PORTRAIT", aspect: "aspect-square" },
-  { id: 27, src: "https://images.unsplash.com/photo-1481691238472-353272e2764b?auto=format&fit=crop&q=80&w=607", category: "PORTRAIT", aspect: "aspect-[3/4]" },
-  { id: 28, src: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=608", category: "PORTRAIT", aspect: "aspect-[4/3]" },
-  { id: 29, src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=609", category: "PORTRAIT", aspect: "aspect-square" },
-  { id: 30, src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=600", category: "PORTRAIT", aspect: "aspect-[3/4]" },
-  { id: 31, src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=601", category: "BIRTHDAY", aspect: "aspect-[4/3]" },
-  { id: 32, src: "https://images.unsplash.com/photo-1595981267035-7b04d84d5f19?auto=format&fit=crop&q=80&w=602", category: "BIRTHDAY", aspect: "aspect-square" },
-  { id: 33, src: "https://images.unsplash.com/photo-1520113110260-032a2c5a2c4e?auto=format&fit=crop&q=80&w=603", category: "BIRTHDAY", aspect: "aspect-[3/4]" },
-  { id: 34, src: "https://images.unsplash.com/photo-1558981420-8ceaa10f1712?auto=format&fit=crop&q=80&w=604", category: "BIRTHDAY", aspect: "aspect-[4/3]" },
-  { id: 35, src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=605", category: "BIRTHDAY", aspect: "aspect-square" },
-  { id: 36, src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=606", category: "BIRTHDAY", aspect: "aspect-[3/4]" },
-  { id: 37, src: "https://images.unsplash.com/photo-1481691238472-353272e2764b?auto=format&fit=crop&q=80&w=607", category: "BIRTHDAY", aspect: "aspect-[4/3]" },
-  { id: 38, src: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=608", category: "BIRTHDAY", aspect: "aspect-square" },
-  { id: 39, src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=609", category: "BIRTHDAY", aspect: "aspect-[3/4]" },
-  { id: 40, src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=600", category: "BIRTHDAY", aspect: "aspect-[4/3]" },
-  { id: 41, src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=601", category: "COMMERCIAL", aspect: "aspect-square" },
-  { id: 42, src: "https://images.unsplash.com/photo-1595981267035-7b04d84d5f19?auto=format&fit=crop&q=80&w=602", category: "COMMERCIAL", aspect: "aspect-[3/4]" },
-  { id: 43, src: "https://images.unsplash.com/photo-1520113110260-032a2c5a2c4e?auto=format&fit=crop&q=80&w=603", category: "COMMERCIAL", aspect: "aspect-[4/3]" },
-  { id: 44, src: "https://images.unsplash.com/photo-1558981420-8ceaa10f1712?auto=format&fit=crop&q=80&w=604", category: "COMMERCIAL", aspect: "aspect-square" },
-  { id: 45, src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=605", category: "COMMERCIAL", aspect: "aspect-[3/4]" },
-  { id: 46, src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=606", category: "COMMERCIAL", aspect: "aspect-[4/3]" },
-  { id: 47, src: "https://images.unsplash.com/photo-1481691238472-353272e2764b?auto=format&fit=crop&q=80&w=607", category: "COMMERCIAL", aspect: "aspect-square" },
-  { id: 48, src: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=608", category: "COMMERCIAL", aspect: "aspect-[3/4]" },
-  { id: 49, src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=609", category: "COMMERCIAL", aspect: "aspect-[4/3]" },
-  { id: 50, src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=600", category: "COMMERCIAL", aspect: "aspect-square" },
-  { id: 51, src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=601", category: "PERSONAL", aspect: "aspect-[3/4]" },
-  { id: 52, src: "https://images.unsplash.com/photo-1595981267035-7b04d84d5f19?auto=format&fit=crop&q=80&w=602", category: "PERSONAL", aspect: "aspect-[4/3]" },
-  { id: 53, src: "https://images.unsplash.com/photo-1520113110260-032a2c5a2c4e?auto=format&fit=crop&q=80&w=603", category: "PERSONAL", aspect: "aspect-square" },
-  { id: 54, src: "https://images.unsplash.com/photo-1558981420-8ceaa10f1712?auto=format&fit=crop&q=80&w=604", category: "PERSONAL", aspect: "aspect-[3/4]" },
-  { id: 55, src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=605", category: "PERSONAL", aspect: "aspect-[4/3]" },
-  { id: 56, src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=606", category: "PERSONAL", aspect: "aspect-square" },
-  { id: 57, src: "https://images.unsplash.com/photo-1481691238472-353272e2764b?auto=format&fit=crop&q=80&w=607", category: "PERSONAL", aspect: "aspect-[3/4]" },
-  { id: 58, src: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=608", category: "PERSONAL", aspect: "aspect-[4/3]" },
-  { id: 59, src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=609", category: "PERSONAL", aspect: "aspect-square" },
-  { id: 60, src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=600", category: "PERSONAL", aspect: "aspect-[3/4]" },
-];
-
+const categories = ["ALL", "WEDDING", "OUTDOOR", "PORTRAIT", "BIRTHDAY", "COMMERCIAL", "PERSONAL","OTHERS"];
 
 export const PortfolioGallery = () => {
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [showAll, setShowAll] = useState(false);
-  const [galleryItems, setGalleryItems] = useState<any[]>(images);
+  const [galleryItems, setGalleryItems] = useState<any[]>([]);
+  const [selectedImage, setSelectedImage] = useState<any | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedImage(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     async function loadPortfolio() {
@@ -84,13 +29,11 @@ export const PortfolioGallery = () => {
               id: d.id,
               src: d.imageUrl,
               category: d.category || 'WEDDING',
-              aspect: d.imagePosition === 'center' ? 'aspect-square' : d.imagePosition === 'right' ? 'aspect-[3/4]' : 'aspect-[4/3]',
+              aspect: d.imagePosition === 'center' ? 'aspect-square' : d.imagePosition === 'right' ? 'aspect-[3/4]' : d.imagePosition === 'left' ? 'aspect-[4/3]' : 'aspect-square',
               isDb: true
             }));
             
-            // Prepend new database items, removing potential duplicates
-            const combined = [...dbItems, ...images.filter(img => !dbItems.some((dbI: any) => dbI.src === img.src))];
-            setGalleryItems(combined);
+            setGalleryItems(dbItems);
           }
         }
       } catch (err) {
@@ -146,15 +89,40 @@ export const PortfolioGallery = () => {
 
         {/* Masonry-like Grid */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 w-full space-y-6">
-          {displayedImages.map((img) => (
-            <div key={img.id} className={`break-inside-avoid w-full ${img.aspect} overflow-hidden bg-[#e8e4db] group relative rounded-xl shadow-md`}>
-              <img 
-                src={img.src} 
-                alt={img.category} 
-                className="w-full h-full object-cover filter grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
-              />
-            </div>
-          ))}
+          {displayedImages.map((img) => {
+            const isVideo = img.src.toLowerCase().endsWith('.mp4') || img.src.toLowerCase().endsWith('.webm');
+            return (
+              <div 
+                key={img.id} 
+                className={`break-inside-avoid w-full ${img.aspect} overflow-hidden bg-[#e8e4db] group relative rounded-xl shadow-md cursor-pointer`}
+                onClick={() => setSelectedImage(img)}
+              >
+                {isVideo ? (
+                  <video 
+                    src={img.src} 
+                    autoPlay 
+                    muted 
+                    loop 
+                    playsInline
+                    className="w-full h-full object-cover filter grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
+                  />
+                ) : (
+                  <img 
+                    src={img.src} 
+                    alt={img.category} 
+                    className="w-full h-full object-cover filter grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
+                  />
+                )}
+                {/* Hover Overlay */}
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-white/90 drop-shadow-md scale-50 group-hover:scale-100 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         {/* View More Button */}
@@ -167,6 +135,45 @@ export const PortfolioGallery = () => {
           </button>
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 p-4 sm:p-8 backdrop-blur-sm"
+          onClick={() => setSelectedImage(null)}
+        >
+          {/* Close Button (Fixed to Top Right) */}
+          <button 
+            className="absolute top-6 right-6 md:top-8 md:right-8 text-white/70 hover:text-white transition-colors bg-black/20 hover:bg-black/50 rounded-full p-2 flex items-center justify-center z-10"
+            onClick={() => setSelectedImage(null)}
+            aria-label="Close modal"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          <div 
+            className="relative max-w-full max-h-full flex items-center justify-center" 
+            onClick={(e) => e.stopPropagation()}
+          >
+            {(selectedImage.src.toLowerCase().endsWith('.mp4') || selectedImage.src.toLowerCase().endsWith('.webm')) ? (
+              <video 
+                src={selectedImage.src} 
+                autoPlay 
+                controls 
+                className="max-w-[95vw] max-h-[90vh] object-contain rounded-md shadow-2xl"
+              />
+            ) : (
+              <img 
+                src={selectedImage.src} 
+                alt={selectedImage.category} 
+                className="max-w-[95vw] max-h-[90vh] object-contain rounded-md shadow-2xl"
+              />
+            )}
+          </div>
+        </div>
+      )}
     </section>
   );
 };

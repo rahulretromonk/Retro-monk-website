@@ -62,8 +62,8 @@ const commercialShoot = {
 };
 
 export const Services = () => {
-  const [gridServices, setGridServices] = useState<any[]>(services);
-  const [commercialItem, setCommercialItem] = useState<any>(commercialShoot);
+  const [gridServices, setGridServices] = useState<any[]>([]);
+  const [commercialItem, setCommercialItem] = useState<any>(null);
 
   useEffect(() => {
     async function loadServices() {

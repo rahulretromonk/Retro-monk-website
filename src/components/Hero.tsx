@@ -103,7 +103,7 @@ export function Hero() {
   };
 
   return (
-    <section className="flex flex-col items-center justify-start min-h-screen pt-16 lg:pt-24 px-4 overflow-hidden bg-[#F4F0EA]">
+    <section className="flex flex-col items-center justify-start min-h-screen pt-16 lg:pt-24 px-0 md:px-4 overflow-hidden bg-[#F4F0EA]">
       
       {/* DESKTOP ONLY: Fan Cards Container */}
       <div className="hidden lg:flex relative w-full max-w-5xl h-[450px] justify-center items-start mt-10 z-10">
@@ -141,7 +141,7 @@ export function Hero() {
 
       {/* MOBILE/TABLET ONLY: Sliding Image Card */}
       <div 
-        className="relative flex lg:hidden w-[90vw] md:w-[75vw] h-[450px] md:h-[500px] mt-6 mb-8 rounded-[24px] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] z-10"
+        className="relative flex lg:hidden w-full md:w-[75vw] h-[60vh] md:h-[500px] mt-0 md:mt-6 mb-6 md:mb-8 rounded-none md:rounded-[24px] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] z-10"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onTouchStart={() => setIsHovered(true)}
@@ -164,28 +164,28 @@ export function Hero() {
             loading={currentIndex === 0 ? "eager" : "lazy"}
           />
         </AnimatePresence>
-        <div className="absolute inset-0 bg-black/5 pointer-events-none mix-blend-overlay"></div>
-      </div>
+        <div className="absolute inset-0 bg-black/10 pointer-events-none mix-blend-overlay"></div>
 
-      {/* MOBILE/TABLET ONLY: Pagination Dots */}
-      <div className="flex lg:hidden justify-center items-center gap-3 mb-10 z-20">
-        {images.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setCurrentIndex(idx)}
-            aria-label={`Go to image ${idx + 1}`}
-            className={`rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#A05C3C]/50 ${
-              idx === currentIndex
-                ? "w-2.5 h-2.5 bg-[#A96A45]"
-                : "w-2 h-2 bg-[#D5CFC1] opacity-60 hover:opacity-100"
-            }`}
-          />
-        ))}
+        {/* MOBILE/TABLET ONLY: Pagination Dots (Overlay at Bottom) */}
+        <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center gap-3 z-20">
+          {images.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              aria-label={`Go to image ${idx + 1}`}
+              className={`rounded-full shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/50 ${
+                idx === currentIndex
+                  ? "w-2.5 h-2.5 bg-white"
+                  : "w-2 h-2 bg-white/50 hover:bg-white/90"
+              }`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Shared Typography and Buttons */}
       <motion.div 
-        className="text-center max-w-3xl z-20 mt-4 lg:mt-12 px-2"
+        className="text-center max-w-3xl z-20 mt-2 lg:mt-12 px-6"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: stage >= 1 ? 1 : 0, y: stage >= 1 ? 0 : 30 }}
         transition={{ duration: 1, delay: 1.5 }}

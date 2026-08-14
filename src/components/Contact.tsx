@@ -77,12 +77,12 @@ export const Contact = () => {
               <div>
                 <p className="text-[10px] tracking-widest text-[#3a3731] font-bold uppercase mb-1">Email</p>
                 <a href="mailto:retromonk@gmail.com" className="text-[#6b675e] text-sm hover:text-[#a88655] transition-colors">
-                  retromonk@gmail.com
+                  retromonstudiok@gmail.com
                 </a>
               </div>
             </div>
 
-            <div className="flex items-start mb-12">
+            <div className="flex items-start mb-8">
               <svg className="w-5 h-5 text-[#a88655] mt-0.5 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
@@ -90,6 +90,20 @@ export const Contact = () => {
                 <p className="text-[10px] tracking-widest text-[#3a3731] font-bold uppercase mb-1">Phone</p>
                 <a href="tel:+917395921835" className="text-[#6b675e] text-sm hover:text-[#a88655] transition-colors">
                   +91 7395921835
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-start mb-12">
+              <svg className="w-5 h-5 text-[#a88655] mt-0.5 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" strokeWidth={1.5}></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"></line>
+              </svg>
+              <div>
+                <p className="text-[10px] tracking-widest text-[#3a3731] font-bold uppercase mb-1">Instagram</p>
+                <a href="https://www.instagram.com/retromonkstudio?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw%3D%3D" target="_blank" rel="noopener noreferrer" className="text-[#6b675e] text-sm hover:text-[#a88655] transition-colors">
+                  @retromonkstudio
                 </a>
               </div>
             </div>
@@ -173,7 +187,7 @@ export const Contact = () => {
                 disabled={isSubmitting}
                 className="w-full border border-[#3a3731] text-[#3a3731] text-[10px] tracking-widest font-bold uppercase py-4 rounded-xl hover:bg-[#3a3731] hover:text-white transition-colors cursor-pointer disabled:opacity-50"
               >
-                {isSubmitting ? 'Sending Request...' : 'Book Your Session'}
+                {isSubmitting ? 'Sending Request...' : 'Get Quote'}
               </button>
 
             </form>
