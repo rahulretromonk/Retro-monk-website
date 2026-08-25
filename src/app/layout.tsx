@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     title: "Retro Monk Studio | Professional Photography | Chennai & India-wide",
     description: "Retro Monk Studio is a Chennai-based photography studio providing wedding, portrait, and commercial photography services across India.",
   },
+  verification: {
+    google: "DyIw40I_H0Z0c4n-qK47_8ubDmoFMNRUNe81f8f_Fzc",
+  },
 };
 
 export default function RootLayout({
