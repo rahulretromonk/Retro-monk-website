@@ -368,6 +368,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <ToastProvider>
+      <meta name="robots" content="noindex" />
       <AdminLayoutContent>{children}</AdminLayoutContent>
     </ToastProvider>
   );
