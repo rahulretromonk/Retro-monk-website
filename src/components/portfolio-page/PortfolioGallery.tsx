@@ -51,9 +51,9 @@ export const PortfolioGallery = () => {
       
       {/* Background large text */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-full text-center pointer-events-none select-none z-0">
-        <h1 className="text-[120px] md:text-[200px] lg:text-[250px] font-serif text-[#A05C3C]/5 leading-none whitespace-nowrap overflow-hidden">
+        <div className="text-[120px] md:text-[200px] lg:text-[250px] font-serif text-[#A05C3C]/5 leading-none whitespace-nowrap overflow-hidden">
           PORTFOLIO
-        </h1>
+        </div>
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10 flex flex-col items-center">

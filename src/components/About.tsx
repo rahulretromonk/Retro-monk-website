@@ -106,34 +106,33 @@ export const About = () => {
             Every Photograph<br />Begins With A Story
           </h2>
           <p className="text-[#55524c] text-base md:text-lg leading-relaxed mb-8 max-w-2xl">
-            We believe that the most profound images are born from quiet
-            observation rather than staged direction. Our approach is rooted in
-            a documentary ethos—capturing the authentic, the imperfect, and
-            the fleetingly beautiful. We seek the nuanced emotions that
-            define your narrative, preserving them with an editorial eye and
-            timeless craftsmanship.
+            Based in Chennai and working across India, Retro Monk Studio specializes in Wedding, Portrait, Commercial, and Birthday photography, as well as Outdoor couple shoots. 
+            We believe that the most profound images are born from quiet observation rather than staged direction. 
+            Our approach is rooted in a documentary ethos—capturing the authentic, the imperfect, and the fleetingly beautiful with an editorial eye and timeless craftsmanship.
           </p>
 
           <div className="mb-10">
-            <h3 className="text-5xl text-[#a88655] mb-2" style={{ fontFamily: 'cursive' }}>Rahul</h3>
+            <h3 className="text-5xl text-[#a88655] mb-2" style={{ fontFamily: 'cursive' }}>Rahul Rajendran</h3>
             <p className="text-xs tracking-[0.15em] text-[#55524c] font-semibold uppercase">Founder & Lead Photographer</p>
           </div>
 
           <div className="flex justify-between items-start flex-wrap gap-y-8 gap-x-4">
             <div className="text-center w-[45%] md:w-auto">
-              <p className="text-4xl lg:text-5xl font-serif text-[#a88655] mb-2"><AnimatedNumber end={10} />+</p>
+              <p className="text-4xl lg:text-5xl font-serif text-[#a88655] mb-2"><AnimatedNumber end={4} />+</p>
               <p className="text-[11px] tracking-widest text-[#55524c] font-medium uppercase leading-snug">Years<br/>Experience</p>
             </div>
             <div className="text-center w-[45%] md:w-auto">
-              <p className="text-4xl lg:text-5xl font-serif text-[#a88655] mb-2"><AnimatedNumber end={500} />+</p>
-              <p className="text-[11px] tracking-widest text-[#55524c] font-medium uppercase leading-snug">Happy<br/>Clients</p>
+              <p className="text-4xl lg:text-5xl font-serif text-[#a88655] mb-2"><AnimatedNumber end={50} />+</p>
+              <p className="text-[11px] tracking-widest text-[#55524c] font-medium uppercase leading-snug">Projects<br/>Completed</p>
             </div>
+            {false && (
+              <div className="text-center w-[45%] md:w-auto">
+                <p className="text-4xl lg:text-5xl font-serif text-[#a88655] mb-2"><AnimatedNumber end={40} />+</p>
+                <p className="text-[11px] tracking-widest text-[#55524c] font-medium uppercase leading-snug">Awards</p>
+              </div>
+            )}
             <div className="text-center w-[45%] md:w-auto">
-              <p className="text-4xl lg:text-5xl font-serif text-[#a88655] mb-2"><AnimatedNumber end={40} />+</p>
-              <p className="text-[11px] tracking-widest text-[#55524c] font-medium uppercase leading-snug">Awards</p>
-            </div>
-            <div className="text-center w-[45%] md:w-auto">
-              <p className="text-4xl lg:text-5xl font-serif text-[#a88655] mb-2"><AnimatedNumber end={25} />+</p>
+              <p className="text-4xl lg:text-5xl font-serif text-[#a88655] mb-2"><AnimatedNumber end={20} />+</p>
               <p className="text-[11px] tracking-widest text-[#55524c] font-medium uppercase leading-snug">Destinations<br/>Covered</p>
             </div>
           </div>

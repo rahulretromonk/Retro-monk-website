@@ -72,12 +72,12 @@ export const Contact = () => {
             
             <div className="flex items-start mb-8">
               <svg className="w-5 h-5 text-[#a88655] mt-0.5 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z" />
               </svg>
               <div>
                 <p className="text-[10px] tracking-widest text-[#3a3731] font-bold uppercase mb-1">Email</p>
-                <a href="mailto:retromonk@gmail.com" className="text-[#6b675e] text-sm hover:text-[#a88655] transition-colors">
-                  retromonstudiok@gmail.com
+                <a href="mailto:retromonk.office@gmail.com" className="text-[#6b675e] text-sm hover:text-[#a88655] transition-colors">
+                  retromonk.office@gmail.com
                 </a>
               </div>
             </div>
@@ -89,7 +89,7 @@ export const Contact = () => {
               <div>
                 <p className="text-[10px] tracking-widest text-[#3a3731] font-bold uppercase mb-1">Phone</p>
                 <a href="tel:+917395921835" className="text-[#6b675e] text-sm hover:text-[#a88655] transition-colors">
-                  +91 7395921835
+                  +91 7395 921 835
                 </a>
               </div>
             </div>

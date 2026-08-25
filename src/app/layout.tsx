@@ -13,8 +13,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Retro Monk",
-  description: "A premium retro-themed photography portfolio.",
+  title: "Retro Monk Studio | Professional Photography | Chennai & India-wide",
+  description: "Retro Monk Studio is a Chennai-based photography studio providing wedding, portrait, and commercial photography services across India.",
+  alternates: {
+    canonical: "https://retromonkstudio.com/",
+  },
+  openGraph: {
+    title: "Retro Monk Studio | Professional Photography | Chennai & India-wide",
+    description: "Retro Monk Studio is a Chennai-based photography studio providing wedding, portrait, and commercial photography services across India.",
+    url: "https://retromonkstudio.com/",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Retro Monk Studio | Professional Photography | Chennai & India-wide",
+    description: "Retro Monk Studio is a Chennai-based photography studio providing wedding, portrait, and commercial photography services across India.",
+  },
 };
 
 export default function RootLayout({
