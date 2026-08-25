@@ -23,8 +23,7 @@ export const PortfolioHero = () => {
             Moments
           </h1>
           <p className="text-sm md:text-base text-gray-400 mb-10 leading-relaxed font-sans max-w-md">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem 
-            doloremque laudantium totam rem aperiam
+            Based in Chennai with India-wide coverage, Retro Monk Studio showcases a curated portfolio spanning weddings, portraits, commercial photography, birthdays, and outdoor couple shoots.
           </p>
           <button className="bg-[#A05C3C] hover:bg-[#8a4e32] text-white text-xs tracking-widest uppercase py-4 px-8 font-semibold transition-colors flex items-center gap-2">
             View Portfolio <span className="text-lg leading-none">&rarr;</span>

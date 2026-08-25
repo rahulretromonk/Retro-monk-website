@@ -63,7 +63,7 @@ export const PortfolioGallery = () => {
             Latest Work
           </h2>
           <p className="text-[#8C6D5D] max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam
+            Explore over 50 projects spanning more than 20 destinations, featuring our finest work in wedding, portrait, and commercial photography.
           </p>
         </div>
 

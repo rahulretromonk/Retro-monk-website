@@ -9,10 +9,10 @@ export const PortfolioFooter = () => {
         {/* Brand Section */}
         <div className="md:w-1/3">
           <h2 className="text-2xl font-serif mb-6 tracking-wide text-white">
-            Pixelate
+            Retro Monk Studio
           </h2>
           <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-sm">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam
+            Based in Chennai, our portfolio showcases over 50 projects capturing weddings, portraits, commercial photography, birthdays, and outdoor couple shoots across India.
           </p>
           <div className="flex gap-6 text-gray-400">
             {/* Social Icons */}
@@ -58,15 +58,15 @@ export const PortfolioFooter = () => {
           <ul className="flex flex-col gap-4 text-sm text-gray-400">
             <li className="flex gap-3">
               <span className="text-[#A05C3C]">📞</span>
-              <span>+012 345 6789</span>
+              <span>+91 7395 921 835</span>
             </li>
             <li className="flex gap-3">
               <span className="text-[#A05C3C]">📍</span>
-              <span>1234 Oxford Dr, Auburn, NY 13021</span>
+              <span>Chennai, Tamil Nadu, India</span>
             </li>
             <li className="flex gap-3">
               <span className="text-[#A05C3C]">✉️</span>
-              <span>info@pixelate.com</span>
+              <span>retromonk.office@gmail.com</span>
             </li>
           </ul>
         </div>
@@ -91,7 +91,7 @@ export const PortfolioFooter = () => {
 
       {/* Bottom Bar */}
       <div className="w-full max-w-6xl border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-gray-500">
-        <p>Copyright © 2026 Pixelate. All Rights Reserved.</p>
+        <p>Copyright © 2026 Retro Monk Studio. All Rights Reserved.</p>
         <div className="flex gap-6">
           <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
           <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
