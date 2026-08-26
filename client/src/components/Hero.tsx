@@ -1,208 +1,189 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 
-const images = [
-  "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600&auto=format&fit=crop", // card 1 (leftmost)
-  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop", // card 2
-  "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=600&auto=format&fit=crop", // card 3
-  "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?q=80&w=600&auto=format&fit=crop", // card 4 (center)
-  "https://images.unsplash.com/photo-1600861194942-f883de0dfe96?q=80&w=600&auto=format&fit=crop", // card 5
-  "https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=600&auto=format&fit=crop", // card 6
-  "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=600&auto=format&fit=crop", // card 7 (rightmost)
+// Card data — local images from /public
+const CARDS = [
+  { src: "/hero-8.jpeg", alt: "Wedding photography" },
+  { src: "/hero-6.jpeg", alt: "Portrait photography" },
+  { src: "/hero-4.jpeg", alt: "Outdoor photography" },
+  { src: "/hero-2.jpeg", alt: "Feature photography" },
+  { src: "/hero-3.jpeg", alt: "Commercial photography" },
+  { src: "/hero-7.jpeg", alt: "Event photography" },
+  { src: "/hero-5.jpeg", alt: "Destination photography" },
 ];
 
+const CENTER = 3;
+
+// Precomputed fan positions — zero runtime cost per render
+function buildFanStyle(index: number) {
+  const off = index - CENTER;
+  return {
+    x: off * 140,
+    y: Math.abs(off) * 35 + off * off * 5,
+    rotate: off * 12,
+    scale: index === CENTER ? 1.15 : 1 - Math.abs(off) * 0.05,
+    opacity: 1,
+  };
+}
+const FAN = CARDS.map((_, i) => buildFanStyle(i));
+
 export function Hero() {
-  const [stage, setStage] = useState(0);
-  
-  // Mobile Carousel states
+  const [ready, setReady] = useState(false);
+
+  // Mobile carousel
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const swipeConfidenceThreshold = 10000;
-  const swipePower = (offset: number, velocity: number) => {
-    return Math.abs(offset) * velocity;
-  };
 
+  // Single-shot: reveal fan 300 ms after paint
   useEffect(() => {
-    // Desktop Stage 0: Initial hidden state
-    // Desktop Stage 1: Pop up linearly
-    const t1 = setTimeout(() => setStage(1), 500);
-    // Desktop Stage 2: Form semi-circle
-    const t2 = setTimeout(() => setStage(2), 2500);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
+    const t = setTimeout(() => setReady(true), 300);
+    return () => clearTimeout(t);
   }, []);
 
-  // Auto-slide for mobile/tablet
+  // Auto-slide mobile
   useEffect(() => {
     if (isHovered) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 5000);
-    return () => clearInterval(interval);
+    const id = setInterval(() => setCurrentIndex((p) => (p + 1) % CARDS.length), 5000);
+    return () => clearInterval(id);
   }, [isHovered]);
 
-  const getCardStyle = (index: number, total: number) => {
-    const isCenter = Math.floor(total / 2) === index;
-    const offsetFromCenter = index - Math.floor(total / 2);
-    
-    // Positions for linear layout (stage 1)
-    if (stage === 1) {
-      return {
-        x: offsetFromCenter * 110, // spaced out linearly
-        y: 0,
-        rotate: 0,
-        scale: 1,
-        opacity: 1,
-      };
-    }
-
-    // Positions for semi-circle layout (stage 2)
-    if (stage === 2) {
-      const angle = offsetFromCenter * 12; // degrees
-      const radius = 600; // imaginary circle radius
-      
-      // Calculate x and y using trigonometry for a true arch
-      const radian = (angle - 90) * (Math.PI / 180);
-      const x = offsetFromCenter * 140; // horizontal spread
-      
-      // y-offset based on distance from center to create an arch
-      const y = Math.abs(offsetFromCenter) * 35 + (offsetFromCenter * offsetFromCenter) * 5;
-
-      return {
-        x: x,
-        y: y,
-        rotate: angle,
-        scale: index === 3 ? 1.15 : 1 - Math.abs(offsetFromCenter) * 0.05,
-        opacity: 1,
-      };
-    }
-
-    // Initial state (stage 0)
-    return {
-      x: offsetFromCenter * 110,
-      y: 100,
-      rotate: 0,
-      scale: 0.8,
-      opacity: 0,
-    };
-  };
-
-  const handleDragEnd = (e: any, { offset, velocity }: any) => {
-    const swipe = swipePower(offset.x, velocity.x);
-    if (swipe < -swipeConfidenceThreshold) {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
-    } else if (swipe > swipeConfidenceThreshold) {
-      setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-    }
+  const handleDragEnd = (_e: unknown, { offset, velocity }: { offset: { x: number }; velocity: { x: number } }) => {
+    const power = Math.abs(offset.x) * velocity.x;
+    if (power < -10000) setCurrentIndex((p) => (p + 1) % CARDS.length);
+    else if (power > 10000) setCurrentIndex((p) => (p - 1 + CARDS.length) % CARDS.length);
   };
 
   return (
-    <section className="relative flex flex-col items-center justify-start min-h-[100svh] pt-0 md:pt-16 lg:pt-24 px-0 md:px-4 overflow-hidden bg-[#F4F0EA]">
-      
-      {/* DESKTOP ONLY: Fan Cards Container */}
-      <div className="hidden lg:flex relative w-full max-w-5xl h-[450px] justify-center items-start mt-10 z-10">
-        {images.map((src, index) => {
-          const isCenter = index === 3;
+    // h-[100svh] + overflow-hidden = no scroll whatsoever
+    <section className="relative flex flex-col items-center justify-start h-[100svh] max-h-[100svh] overflow-hidden bg-[#F4F0EA] pt-0 lg:pt-20">
+
+      {/* ── DESKTOP: Animated Fan ──────────────────────────── */}
+      <div className="hidden lg:flex relative w-full max-w-5xl h-[420px] justify-center items-start mt-6 z-10 flex-shrink-0">
+
+        {CARDS.map((card, i) => {
+          const isCenter = i === CENTER;
           return (
             <motion.div
-              key={index}
-              className={`absolute top-0 rounded-2xl overflow-hidden shadow-2xl border border-white/20`}
+              key={i}
+              className="absolute top-0 rounded-2xl overflow-hidden shadow-2xl border border-white/20"
               style={{
-                width: isCenter ? '240px' : '200px',
-                height: isCenter ? '340px' : '280px',
-                zIndex: images.length - Math.abs(3 - index),
+                width: isCenter ? 240 : 200,
+                height: isCenter ? 340 : 280,
+                zIndex: CARDS.length - Math.abs(CENTER - i),
+                willChange: "transform",
               }}
-              initial={false}
-              animate={getCardStyle(index, images.length)}
+              initial={{ opacity: 0, y: 70, scale: 0.85, rotate: 0 }}
+              animate={ready ? FAN[i] : { opacity: 0, y: 70, scale: 0.85, rotate: 0 }}
               transition={{
-                duration: 0.8,
                 type: "spring",
-                bounce: 0.2,
-                delay: stage === 1 ? index * 0.1 : 0,
+                stiffness: 150,
+                damping: 20,
+                delay: ready ? Math.abs(i - CENTER) * 0.06 : 0,
               }}
             >
-              <img
-                src={src}
-                alt={`Portfolio image ${index + 1}`}
-                className="w-full h-full object-cover"
-                loading={index === 3 ? "eager" : "lazy"}
+              <Image
+                src={card.src}
+                alt={card.alt}
+                fill
+                sizes={isCenter ? "240px" : "200px"}
+                className="object-cover"
+                priority={isCenter}
+                quality={isCenter ? 85 : 60}
               />
-              <div className="absolute inset-0 bg-black/10 mix-blend-overlay"></div>
+              <div className="absolute inset-0 bg-black/8 pointer-events-none" />
             </motion.div>
           );
         })}
       </div>
 
-      {/* MOBILE/TABLET ONLY: Sliding Image Card */}
-      <div 
-        className="relative flex lg:hidden w-full h-[100svh] md:h-[500px] md:w-[75vw] md:mt-6 mb-8 md:mb-8 rounded-none md:rounded-[24px] overflow-hidden shadow-md md:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] z-0"
+      {/* ── MOBILE / TABLET: Swipeable card ──────────────────── */}
+      <div
+        className="relative flex lg:hidden w-full h-[52svh] md:h-[400px] md:w-[75vw] mt-16 md:mt-10 rounded-2xl overflow-hidden shadow-xl flex-shrink-0 z-0"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onTouchStart={() => setIsHovered(true)}
-        onTouchEnd={() => { setTimeout(() => setIsHovered(false), 2000) }}
+        onTouchEnd={() => setTimeout(() => setIsHovered(false), 2000)}
       >
         <AnimatePresence initial={false}>
-          <motion.img
+          <motion.div
             key={currentIndex}
-            src={images[currentIndex]}
-            alt={`Hero showcase image ${currentIndex + 1}`}
-            className="absolute inset-0 w-full h-full object-cover cursor-grab active:cursor-grabbing"
-            initial={{ opacity: 0, scale: 1 }}
-            animate={{ opacity: 1, scale: 1.02 }}
-            exit={{ opacity: 0, zIndex: -1 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.2}
+            dragElastic={0.15}
             onDragEnd={handleDragEnd}
-            loading={currentIndex === 0 ? "eager" : "lazy"}
-          />
+            style={{ willChange: "opacity" }}
+          >
+            <Image
+              src={CARDS[currentIndex].src}
+              alt={CARDS[currentIndex].alt}
+              fill
+              sizes="(max-width: 768px) 100vw, 75vw"
+              className="object-cover cursor-grab active:cursor-grabbing"
+              priority={currentIndex === 0}
+              quality={75}
+            />
+          </motion.div>
         </AnimatePresence>
-        <div className="absolute inset-0 bg-black/10 pointer-events-none mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-black/10 pointer-events-none" />
 
-        {/* MOBILE/TABLET ONLY: Pagination Dots (Overlay at Bottom) */}
-        <div className="absolute bottom-10 md:bottom-6 left-0 right-0 flex justify-center items-center gap-3 z-20">
-          {images.map((_, idx) => (
+        {/* Owner badge overlay – mobile */}
+        <div className="absolute bottom-14 left-4 z-20 flex items-center gap-2 bg-black/40 backdrop-blur-sm rounded-xl px-3 py-2">
+          <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/50 flex-shrink-0">
+            <Image src="/owner.jpeg" alt="Rahul Rajendran" fill sizes="32px" className="object-cover object-top" />
+          </div>
+          <div>
+            <p className="text-white font-semibold text-xs leading-none">Rahul Rajendran</p>
+            <p className="text-white/70 text-[10px] mt-0.5">Founder &amp; Lead Photographer</p>
+          </div>
+        </div>
+
+        {/* Pagination dots */}
+        <div className="absolute bottom-5 left-0 right-0 flex justify-center items-center gap-2.5 z-20">
+          {CARDS.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
               aria-label={`Go to image ${idx + 1}`}
-              className={`rounded-full shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/50 ${
-                idx === currentIndex
-                  ? "w-2.5 h-2.5 bg-white"
-                  : "w-2 h-2 bg-white/50 hover:bg-white/90"
+              className={`rounded-full shadow transition-all duration-300 focus:outline-none ${
+                idx === currentIndex ? "w-2.5 h-2.5 bg-white" : "w-2 h-2 bg-white/50 hover:bg-white/80"
               }`}
             />
           ))}
         </div>
       </div>
 
-      {/* Shared Typography and Buttons */}
-      <motion.div 
-        className="relative z-10 text-center max-w-3xl px-6 flex flex-col items-center justify-start w-full mb-12 md:mb-0 mt-2 md:mt-12"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: stage >= 1 ? 1 : 0, y: stage >= 1 ? 0 : 30 }}
-        transition={{ duration: 1, delay: 1.5 }}
+      {/* ── Typography + CTAs ─────────────────────────────────── */}
+      <motion.div
+        className="relative z-10 text-center max-w-3xl px-6 flex flex-col items-center w-full mt-5 lg:mt-7 flex-shrink-0"
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : 24 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
       >
-        <h1 className="text-4xl md:text-5xl lg:text-[4.5rem] leading-[1.1] font-serif mb-6 text-[#A05C3C]">
-          Capturing Moments<br />Through Every Frame
+        <h1 className="text-3xl md:text-5xl lg:text-[4rem] leading-[1.1] font-serif mb-4 text-[#A05C3C]">
+          Chennai-Based&nbsp;<br className="hidden sm:block" />Photography Studio
         </h1>
-        <p className="hidden md:block text-[#8C6D5D] text-lg lg:text-xl max-w-xl lg:max-w-2xl mx-auto mb-10 font-serif leading-relaxed">
-          A curated collection of timeless moments, meticulously crafted to preserve the elegance and authenticity of your legacy.
+        <p className="hidden md:block text-[#8C6D5D] text-base lg:text-lg max-w-xl mx-auto mb-7 font-serif leading-relaxed">
+          Wedding, Portrait &amp; Commercial Photography Across India
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6 w-full max-w-sm sm:max-w-none">
-          <Link href="/portfolio" className="inline-block text-center bg-[#2D3741] text-[#F4F0EA] md:text-white text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-[#1E252C] transition-colors rounded-full shadow-md md:shadow-none">
-            View Portfolio
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 lg:gap-5 w-full max-w-sm sm:max-w-none">
+          <Link
+            href="/portfolio"
+            className="inline-block text-center bg-[#2D3741] text-[#F4F0EA] text-sm font-semibold tracking-widest uppercase px-8 py-3.5 w-full sm:w-auto hover:bg-[#1E252C] transition-colors rounded-full shadow-md"
+          >
+            VIEW PHOTOGRAPHY PORTFOLIO
           </Link>
-          <button className="bg-transparent border border-[#A05C3C] text-[#333333] text-sm font-semibold tracking-widest uppercase px-8 py-4 w-full sm:w-auto hover:bg-[#F5F1E8]/5 transition-colors rounded-full shadow-md md:shadow-none">
-            Book A Session
+          <button className="bg-transparent border border-[#A05C3C] text-[#333333] text-sm font-semibold tracking-widest uppercase px-8 py-3.5 w-full sm:w-auto hover:bg-[#A05C3C]/8 transition-colors rounded-full">
+            Check Availability
           </button>
         </div>
       </motion.div>

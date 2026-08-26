@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
 
 const AnimatedNumber = ({ end, duration = 2000 }: { end: number, duration?: number }) => {
   const [count, setCount] = useState(0);
@@ -82,38 +83,36 @@ export const About = () => {
         {/* Left Side: Images */}
         <div className="w-full md:w-5/12 flex flex-col items-center">
           <div className="bg-[#e9e3d5] p-3 rounded-2xl shadow-xl w-full max-w-[450px]">
-             <div className="rounded-xl overflow-hidden h-[556px] relative">
-                <style>{`
-                  @keyframes scrollVertical {
-                    0% { transform: translateY(0); }
-                    100% { transform: translateY(-50%); }
-                  }
-                  .animate-scroll-vertical {
-                    animation: scrollVertical 30s linear infinite;
-                  }
-                `}</style>
-                <div className="flex flex-col gap-1 animate-scroll-vertical">
-                  <ImageGroup />
-                  <ImageGroup />
-                </div>
-             </div>
+            <div className="rounded-xl overflow-hidden relative w-full h-[520px]">
+              <Image
+                src="/owner.jpeg"
+                alt="Rahul Rajendran – Lead Photographer"
+                fill
+                sizes="(max-width: 768px) 100vw, 450px"
+                className="object-cover object-top"
+                priority
+                quality={90}
+              />
+            </div>
           </div>
         </div>
 
         {/* Right Side: Text */}
         <div className="w-full md:w-7/12 flex flex-col pt-4 md:pt-0">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#3a3731] mb-6 leading-[1.15]">
-            Every Photograph<br />Begins With A Story
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif text-[#3a3731] mb-6 leading-[1.15]">
+            Chennai-Based Photographer<br />Capturing Stories Across India
           </h2>
           <p className="text-[#55524c] text-base md:text-lg leading-relaxed mb-8 max-w-2xl">
-            Based in Chennai and working across India, Retro Monk Studio specializes in Wedding, Portrait, Commercial, and Birthday photography, as well as Outdoor couple shoots. 
-            We believe that the most profound images are born from quiet observation rather than staged direction. 
-            Our approach is rooted in a documentary ethos—capturing the authentic, the imperfect, and the fleetingly beautiful with an editorial eye and timeless craftsmanship.
+            Retro Monk Studio is a Chennai-based photography studio specializing in 
+            wedding, portrait, commercial, birthday, and outdoor couple photography across 
+            India. We create authentic, timeless photographs that capture genuine moments,
+             emotions, and stories with a documentary and editorial approach.
           </p>
 
+          {/* Owner name */}
           <div className="mb-10">
-            <h3 className="text-5xl text-[#a88655] mb-2" style={{ fontFamily: 'cursive' }}>Rahul Rajendran</h3>
-            <p className="text-xs tracking-[0.15em] text-[#55524c] font-semibold uppercase">Founder & Lead Photographer</p>
+            <h3 className="text-4xl text-[#a88655] leading-none" style={{ fontFamily: 'cursive' }}>Rahul Rajendran</h3>
+            <p className="text-xs tracking-[0.15em] text-[#55524c] font-semibold uppercase mt-1">Founder &amp; Lead Photographer</p>
           </div>
 
           <div className="flex justify-between items-start flex-wrap gap-y-8 gap-x-4">

@@ -54,13 +54,13 @@ export const Contact = () => {
         
         {/* Header */}
         <div className="text-center max-w-2xl mb-20">
-          <p className="text-xs md:text-sm tracking-[0.15em] text-[#a88655] font-bold uppercase mb-4">Get In Touch</p>
+          <p className="text-xs md:text-sm tracking-[0.15em] text-[#a88655] font-bold uppercase mb-4">Book Your Photography Session</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#3a3731] mb-6 leading-tight">
             Let's Tell Your Story
           </h2>
           <p className="text-[#6b675e] text-base md:text-lg font-serif">
-            We believe in capturing genuine moments. Reach out to discuss your<br className="hidden md:block" />
-            upcoming project, wedding, or editorial commission.
+          Contact Retro Monk Studio for wedding, portrait, commercial, birthday, or<br className="hidden md:block" />
+            couple photography across Chennai and India.
           </p>
         </div>
 
@@ -111,7 +111,7 @@ export const Contact = () => {
             <div className="w-full h-px bg-[#e8e4db] mb-8"></div>
 
             <p className="font-serif italic text-[#3a3731] text-lg">
-              "Every great story begins with hello."
+             "Let's create photographs that tell your story."
             </p>
           </div>
 

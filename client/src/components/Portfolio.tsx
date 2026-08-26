@@ -40,13 +40,12 @@ export const Portfolio = () => {
         
         {/* Header */}
         <div className="text-center max-w-3xl mb-24">
-          <p className="text-sm tracking-[0.15em] text-[#55524c] font-semibold uppercase mb-4">Featured Work</p>
+          <p className="text-sm tracking-[0.15em] text-[#55524c] font-semibold uppercase mb-4">PHOTOGRAPHY PORTFOLIO</p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#3a3731] mb-6 leading-[1.15]">
-            Every Story Deserves Its Own<br />Chapter
+           Wedding, Portrait & <br />Commercial Photography
           </h2>
           <p className="text-[#55524c] text-base md:text-lg italic font-serif">
-            A curated collection of timeless moments captured with emotion,<br />
-            authenticity, and purpose.
+            Explore our photography portfolio featuring wedding, portrait, commercial, birthday, and outdoor couple photography across Chennai and India.
           </p>
         </div>
 

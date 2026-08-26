@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const faqs = [
   {
-    question: "How far in advance should we secure a booking?",
-    answer: "For weekend dates during peak season (May through October), we recommend securing your commission 12 to 18 months in advance. Our calendar is strictly limited to ensure the highest level of artistic dedication to each client.\n\nFor intimate gatherings, elopements, or mid-week commissions, a 6-month lead time is generally sufficient. A signed agreement and retainer are required to reserve your date on our calendar."
+    question: "How far in advance should we book a photography session?",
+    answer: "We recommend booking as early as possible, especially for weddings and important events, so we can check availability and plan your photography coverage."
   },
   {
     question: "Do you travel for destination commissions?",
@@ -58,12 +58,12 @@ export const FAQ = () => {
         
         {/* Header */}
         <div className="text-center max-w-2xl mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#3a3731] mb-6 leading-tight">
-            Frequently Asked<br />Questions
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif text-[#3a3731] mb-6 leading-tight">
+            Frequently Asked Questions <br />About Photography Services
           </h2>
           <p className="text-[#6b675e] text-base md:text-lg font-serif">
-            Find quick answers to common inquiries regarding booking,<br className="hidden md:block" />
-            timelines, and the curatorial process of our photographic services.
+           Find answers to common questions about booking, photography services, travel, <br className="hidden md:block" />
+            and the process of working with Retro Monk Studio across Chennai and India
           </p>
         </div>
 

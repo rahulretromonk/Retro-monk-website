@@ -122,14 +122,11 @@ export const Services = () => {
         
         {/* Header */}
         <div className="text-center max-w-2xl mb-16">
-          <p className="text-sm tracking-[0.15em] text-[#a88655] font-semibold uppercase mb-4">Our Signature Services</p>
+          <p className="text-sm tracking-[0.15em] text-[#a88655] font-semibold uppercase mb-4">PHOTOGRAPHY SERVICES</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#3a3731] mb-6 leading-tight">
-            Moments We Capture
+            Photography Services in Chennai & Across India
           </h2>
-          <p className="text-[#55524c] text-base md:text-lg leading-relaxed">
-            Every occasion deserves thoughtful storytelling. Explore the photography
-            experiences crafted to preserve your most meaningful moments.
-          </p>
+          <p className="text-[#55524c] text-base md:text-lg leading-relaxed">Explore wedding, portrait, commercial, birthday, and outdoor couple photography services tailored to capture authentic moments across Chennai and India.</p>
         </div>
 
         {/* Services Grid */}
